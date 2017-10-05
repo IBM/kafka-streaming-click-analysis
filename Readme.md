@@ -22,6 +22,14 @@ When you complete  this journey,  you will understand  how to:
 1. Perform  clickstream  analysis using,  structured  streaming.
 
 2. Build  a low latency stream  processing, reading  from kafka.
+
+## Featured technologies
+
+* [Apache Spark](http://spark.apache.org/): An open-source distributed computing framework that allows you to perform large-scale data processing.
+* [Apache Kafka](http://kafka.apache.org) Kafka™ is used for building real-time data pipelines and streaming apps. It is designed to be horizontally scalable, fault-tolerant and fast.
+
+![](doc/source/images/architecture.png)
+
   
 ## Set up instructions.
 
@@ -127,3 +135,7 @@ Here we assume, the higher number of clicks indicate a "Hot topic" or "Trending 
 Please feel free, to contribute more ideas on how to improve and even more type of
 clickstream analytics that can be done.
 
+
+# License
+
+[Apache 2.0](LICENSE)
