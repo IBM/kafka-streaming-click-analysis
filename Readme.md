@@ -1,15 +1,16 @@
-## Abstract
+## Clickstream Analysis using Apache Spark and Kafka
 
-In this journey, we will build a click stream analytics pipeline using kafka and 
-structured streaming. Clickstream  analysis offers useful information  about  
-the usage characteristics of a website.
+Clickstream analysis offers useful information about the usage characteristics of a website.
 
-Few business uses cases involve:
+Popular use cases include:
 
-1. A/B Testing.
-2. Recommendation generation on shopping portals.
-3. Targetted advertisement.
-4. Trending topics on wikipedia.
+1. <b>A/B Testing.</b> Statistically study how users of a web site are affected by changes from version A to B. [Read more](https://en.wikipedia.org/wiki/A/B_testing)
+
+2. <b>Recommendation generation on shopping portals.</b> By determining the order in which a user clicks on a web site, what influenced him/her to a buying decision can be ascertained. This information can be used as a recommendation generation for future such patterns of clicks. 
+
+3. <b>Targetted advertisement.</b> Simillar to recommendation generation, by tracking user clicks across websites, users of websites are served more precisely targetted advertisement.
+
+4. <b>Trending topics.</b> Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets highest number of user clicks. 
 
 In this journey, we choose to demonstrate, how to detect trending topics on 
 wikipedia in real time. Kafka is used as a message queue and spark structured 
@@ -17,11 +18,11 @@ streaming is used for performing the analytics. This comnbination of kafka and
 spark structured streaming is well known, for its usability and high throghput 
 with low latency characterstics.
 
-When you complete  this journey,  you will understand  how to:
+When you complete this journey, you will understand how to:
 
-1. Perform  clickstream  analysis using,  structured  streaming.
+1. Perform clickstream analysis using, structured streaming.
 
-2. Build  a low latency stream  processing, reading  from kafka.
+2. Build a low latency stream processing, reading from kafka.
 
 ## Featured technologies
 
@@ -30,14 +31,25 @@ When you complete  this journey,  you will understand  how to:
 
 ![](doc/source/images/architecture.png)
 
+
   
 ## Set up instructions.
 
 To set it up, please install kafka and Apache spark 2.2.0 on your system. 
-An external publisher(simulating a real click stream) publishing to a topic
- `clicks` on kafka running on <ip:port>. The latest data used for this 
- ourney may be download via, 
- [Wikipedia Clickstream data](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data"). 
+
+In case an existing clickstream is not available for processing. A simulating clickstream can be used. 
+An external publisher (simulating a real click stream) publishing to a topic `clicks`, on kafka running on <ip:port>, can be setup by 
+
+1. first downloading the data from: [Wikipedia Clickstream data](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data").
+
+2. Kafka distribution comes with a handy command line utility for this purpose, once the data is downloaded and extracted.
+
+Run,
+```
+$> tail -200 data/2017_01_en_clickstream.tsv | KAFKA_OPTS="-Djava.security.auth.login.config=config/jaas.conf" bin/kafka-console-producer.sh --broker-list ip:port  --topic clicks --producer.config=config/producer.properties
+```
+
+*Note: One can use unix head or tail utilities for conveniently specifying the range of rows to be sent for simulating clickstream.*
 
 ## Running the stream using Spark shell.
 
