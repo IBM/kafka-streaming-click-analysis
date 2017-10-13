@@ -51,7 +51,7 @@ $> tail -200 data/2017_01_en_clickstream.tsv | KAFKA_OPTS="-Djava.security.auth.
 
 *Note: One can use unix head or tail utilities for conveniently specifying the range of rows to be sent for simulating clickstream.*
 
-## Running the stream using Spark shell.
+## Running locally using Spark shell.
 
 ### Bootstrap Spark.
 Go to the spark install directory and bootstrap the spark shell specifying 
@@ -139,6 +139,8 @@ only showing top 20 rows
 
 ```
 
+--------------------------------------------------------------
+
 Resultant table shows the wikipedia pages with maximum hits. This table updates
 automatically as soon as more data arrives from kafka. Unless specified otherwise,
 structured streaming performs processing as soon as it sees some data.
@@ -146,6 +148,13 @@ structured streaming performs processing as soon as it sees some data.
 Here we assume, the higher number of clicks indicate a "Hot topic" or "Trending topic".
 Please feel free, to contribute more ideas on how to improve and even more type of
 clickstream analytics that can be done.
+
+
+## Running on IBM datascience experience.
+
+Sign up for IBM datascience experience at [IBM DSX](https://datascience.ibm.com/). Once signed up, go ahead and create a project and add a notebook by loading from URL and provide [Notebook](notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb).
+
+A message hub service can also be used incase, an existing kafka service is not available for testing. For this, one can add a data asset and create a message hub service. Later in the notebook credentials can be inserted using instructions given within [Notebook](notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb).
 
 
 # License
