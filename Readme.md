@@ -23,7 +23,10 @@ When you complete this journey, you will understand how to:
 
 ## Flow
 
-TBD
+* A running instance of a clickstream, over a kafka or Message hub service.
+* The Apache spark structured streaming job, reads the clickstream from specified topic on kafka/Message hub.
+* Follow the instructions on the readme, to either run it using IBM Datascience Experience or run it locally.
+* The processed stream is printed to console using a Console Sink.
 
 ## Included components
 
