@@ -1,6 +1,6 @@
 !! In Progress !!
 
-## Clickstream Analysis using Apache Spark and Kafka
+## Clickstream Analysis using Apache Spark and Apache Kafka
 
 Clickstream analysis offers useful information about the usage characteristics of a website.
 
@@ -12,7 +12,7 @@ Some popular use cases include:
 * <b>Trending topics.</b> Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets highest number of user clicks. 
 
 In this journey, we will demonstrate how to detect trending topics on 
-[Wikipedia](https://www.wikipedia.org/) in real-time. Apache Kafka is used as a message queue, and the Apache Spark Structured Streaming processing engine is used to perform the analytics. This comnbination of is well known for its usability and high throughput, with low-latency characterstics.
+[Wikipedia](https://www.wikipedia.org/) in real-time. Apache Kafka is used as a message queue, and the Apache Spark structured streaming engine is used to perform the analytics. This comnbination of is well known for its usability and high throughput, with low-latency characterstics.
 
 When you complete this journey, you will understand how to:
 
@@ -23,15 +23,15 @@ When you complete this journey, you will understand how to:
 
 ## Flow
 
-* A running instance of a clickstream, over a kafka or Message hub service.
-* The Apache spark structured streaming job, reads the clickstream from specified topic on kafka/Message hub.
-* Follow the instructions on the readme, to either run it using IBM Datascience Experience or run it locally.
-* The processed stream is printed to console using a Console Sink.
+1. A running instance of a clickstream, over an Apache Kafka service.
+2. Apache Spark reads the clickstream from a specified topic of an Apache Kafka service.
+3. The notebook is run using IBM's Data Science Experience (or run locally).
+4. The processed stream is printed to console.
 
 ## Included components
 
 * [Apache Spark](http://spark.apache.org/): An open-source distributed computing framework that allows you to perform large-scale data processing.
-* [Apache Kafka](http://kafka.apache.org): Kafka™ is used for building real-time data pipelines and streaming apps. It is designed to be horizontally scalable, fault-tolerant and fast.
+* [Apache Kafka](http://kafka.apache.org): Kafka is used for building real-time data pipelines and streaming apps. It is designed to be horizontally scalable, fault-tolerant and fast.
 
 # Steps
 
