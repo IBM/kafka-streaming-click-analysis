@@ -36,7 +36,7 @@ When you complete this journey, you will understand how to:
 # Steps
 
 There are two modes of exercising this journey:
-* Run locally using a the Spark shell.
+* [Run locally using the Spark shell](#run-locally)
 * [Run using a Jupyter notebook in the IBM Data Science Experience](#run-using-a-jupyter-notebook-in-the-ibm-data-science-experience).
 
 ## Run locally
