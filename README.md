@@ -7,17 +7,20 @@ Clickstream analysis offers useful information about the usage characteristics o
 Some popular use cases include:
 
 * <b>A/B Testing.</b> Statistically study how users of a web site are affected by changes from version A to B. [Read more](https://en.wikipedia.org/wiki/A/B_testing)
-* <b>Recommendation generation on shopping portals.</b> By determining the order in which a user clicks on a web site, what influenced him/her to a buying decision can be ascertained. This information can be used as a recommendation generation for future such patterns of clicks. 
-* <b>Targetted advertisement.</b> Simillar to recommendation generation, by tracking user clicks across websites, users of websites are served more precisely targetted advertisement.
-* <b>Trending topics.</b> Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets highest number of user clicks. 
+
+* <b>Recommendation generation on shopping portals.</b> Click patterns of users of a shopping portal website, indicate how a user was influenced into buying something. This information can be used as a recommendation generation for future such patterns of clicks.
+
+* <b>Targeted advertisement.</b> Similar to <i>recommendation generation</i>, but tracking user clicks across websites and using that information to target advertisement in real-time and more accurately.
+
+* <b>Trending topics.</b> Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets the highest number of user clicks. 
 
 In this journey, we will demonstrate how to detect trending topics on 
-[Wikipedia](https://www.wikipedia.org/) in real-time. Apache Kafka is used as a message queue, and the Apache Spark structured streaming engine is used to perform the analytics. This comnbination of is well known for its usability and high throughput, with low-latency characterstics.
+[Wikipedia](https://www.wikipedia.org/) in real-time. Apache Kafka is used as a message queue, and the Apache Spark structured streaming engine is used to perform the analytics. This combination of is well known for its usability and high throughput, with low-latency characteristics.
 
 When you complete this journey, you will understand how to:
 
-* Perform clickstream analysis using Apache Spark Structured Streaming
-* Build a low-latency processing stream utilizing Apache Kafka
+* Perform clickstream analysis using Apache Spark Structured Streaming.
+* Build a low-latency processing stream utilizing Apache Kafka.
 
 ![](doc/source/images/architecture.png)
 
@@ -36,13 +39,13 @@ When you complete this journey, you will understand how to:
 # Steps
 
 There are two modes of exercising this journey:
-* [Run locally using the Spark shell](#run-locally)
+* [Run locally using the Spark shell](#run-locally).
 * [Run using a Jupyter notebook in the IBM Data Science Experience](#run-using-a-jupyter-notebook-in-the-ibm-data-science-experience).
 
 ## Run locally
-1. [Install Spark and Kafka](#1-install-spark-and-kafka)
-2. [Setup clickstream](#2-setup-clickstream)
-3. [Run the script](#3-run-the-script)
+1. [Install Spark and Kafka](#1-install-spark-and-kafka).
+2. [Setup clickstream](#2-setup-clickstream).
+3. [Run the script](#3-run-the-script).
 
 ### 1. Install Spark and Kafka
 
@@ -50,7 +53,7 @@ Install [Apache Kafka](https://kafka.apache.org/downloads) and [Apache Spark 2.2
 
 ### 2. Setup clickstream
 
-In case an existing clickstream is not available for processing. A simulating clickstream can be used. An external publisher (simulating a real click stream) publishing to a topic `clicks`, on kafka running on <ip:port>, can be setup by 
+In case an existing clickstream is not available for processing, a simulating clickstream can be used. An external publisher (simulating a real click stream) publishing to a topic `clicks`, on kafka running on <ip:port>, can be setup by 
 
 1. Download the data from: [Wikipedia Clickstream data](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data").
 2. The Kafka distribution comes with a handy command line utility for this purpose, once the data is downloaded and extracted, run:
@@ -63,16 +66,14 @@ $ tail -200 data/2017_01_en_clickstream.tsv | KAFKA_OPTS="-Djava.security.auth.l
 
 ### 3. Run the script
 
-Go to the Spark install directory and bootstrap the Spark shell specifying 
-the correct versions of Spark and Kafka:
+Go to the Spark install directory and bootstrap the Spark shell specifying the correct versions of Spark and Kafka:
 
 ```
 $ cd $SPARK_DIR
 $ bin/spark-shell --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.2.0
 ```
 
-In the spark shell prompt, specify the schema of the incoming wikipedia clickstream 
-and parse method:
+In the spark shell prompt, specify the schema of the incoming wikipedia clickstream and parse method:
 
 ```scala
 scala> import scala.util.Try
@@ -157,15 +158,15 @@ only showing top 20 rows
 The resultant table shows the wikipedia pages with the maximum number of hits. This table updates automatically as soon as more data arrives from Kafka. Unless specified otherwise, structured streaming performs processing as soon as it sees any data.
 
 Here we assume the higher number of clicks indicates a "Hot topic" or "Trending topic".
-Please feel free, to contribute more ideas on how to improve and even more type of
+Please feel free to contribute more ideas on how to improve, and even more type of
 clickstream analytics that can be done.
 
 ## Run using a Jupyter notebook in the IBM Data Science Experience
 
-1. [Sign up for the Data Science Experience](#1-sign-up-for-the-data-science-experience)
-2. [Create the notebook](#2-create-the-notebook)
-3. [Run the notebook](#3-run-the-notebook)
-4. [Save and Share](#4-save-and-share)
+1. [Sign up for the Data Science Experience](#1-sign-up-for-the-data-science-experience).
+2. [Create the notebook](#2-create-the-notebook).
+3. [Run the notebook](#3-run-the-notebook).
+4. [Save and Share](#4-save-and-share).
 
 ### 1. Sign up for the Data Science Experience
 
