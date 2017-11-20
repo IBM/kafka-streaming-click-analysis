@@ -1,6 +1,4 @@
-!! In Progress !!
-
-## Clickstream Analysis using Apache Spark and Apache Kafka
+# Clickstream Analysis using Apache Spark and Apache Kafka
 
 Clickstream analysis offers useful information about the usage characteristics of a website.
 
@@ -14,10 +12,9 @@ Some popular use cases include:
 
 * <b>Trending topics.</b> Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets the highest number of user clicks. 
 
-In this journey, we will demonstrate how to detect trending topics on 
-[Wikipedia](https://www.wikipedia.org/) in real-time. Apache Kafka is used as a message queue, and the Apache Spark structured streaming engine is used to perform the analytics. This combination of is well known for its usability and high throughput, with low-latency characteristics.
+In this Code Pattern, we will demonstrate how to detect trending topics on [Wikipedia](https://www.wikipedia.org/) in real-time. Apache Kafka is used as a message queue, and the Apache Spark structured streaming engine is used to perform the analytics. This combination of is well known for its usability and high throughput, with low-latency characteristics.
 
-When you complete this journey, you will understand how to:
+When you complete this Code Pattern, you will understand how to:
 
 * Perform clickstream analysis using Apache Spark Structured Streaming.
 * Build a low-latency processing stream utilizing Apache Kafka.
@@ -38,7 +35,7 @@ When you complete this journey, you will understand how to:
 
 # Steps
 
-There are two modes of exercising this journey:
+There are two modes of exercising this Code Pattern:
 * [Run locally using the Spark shell](#run-locally).
 * [Run using a Jupyter notebook in the IBM Data Science Experience](#run-using-a-jupyter-notebook-in-the-ibm-data-science-experience).
 
@@ -257,6 +254,13 @@ options to specify exactly what you want shared from your notebook:
   your dashDB credentials from being shared.
 * `All content, including code`: displays the notebook as is.
 * A variety of `download as` options are also available in the menu.
+
+# Learn more
+
+* **Data Analytics Code Patterns**: Enjoyed this Code Pattern? Check out our other [Data Analytics Code Patterns](https://developer.ibm.com/code/technologies/data-science/)
+* **AI and Data Code Pattern Playlist**: Bookmark our [playlist](https://www.youtube.com/playlist?list=PLzUbsvIyrNfknNewObx5N7uGZ5FKH0Fde) with all of our Code Pattern videos
+* **Data Science Experience**: Master the art of data science with IBM's [Data Science Experience](https://datascience.ibm.com/)
+* **Spark on IBM Cloud**: Need a Spark cluster? Create up to 30 Spark executors on IBM Cloud with our [Spark service](https://console.bluemix.net/catalog/services/apache-spark)
 
 # License
 [Apache 2.0](LICENSE)
