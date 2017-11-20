@@ -12,7 +12,7 @@ Some popular use cases include:
 
 * <b>Trending topics.</b> Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets the highest number of user clicks. 
 
-In this Code Pattern, we will demonstrate how to detect trending topics on [Wikipedia](https://www.wikipedia.org/) in real-time. Apache Kafka is used as a message queue, and the Apache Spark structured streaming engine is used to perform the analytics. This combination of is well known for its usability and high throughput, with low-latency characteristics.
+In this Code Pattern, we will demonstrate how to detect trending topics on [Wikipedia](https://www.wikipedia.org/) in real-time. Apache Kafka is used as a message queue, and the Apache Spark structured streaming engine is used to perform the analytics. This combination is well known for its usability and high throughput, with low-latency characteristics.
 
 When you complete this Code Pattern, you will understand how to:
 
