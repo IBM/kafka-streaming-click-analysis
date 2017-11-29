@@ -46,7 +46,7 @@ There are two modes of exercising this Code Pattern:
 
 ### 1. Install Spark and Kafka
 
-Install [Apache Kafka](https://kafka.apache.org/downloads) and [Apache Spark 2.2.0](https://spark.apache.org/releases/spark-release-2-2-0.html) on your system. 
+Install by downloading and extracting a binary distribution from [Apache Kafka](https://kafka.apache.org/downloads) and [Apache Spark 2.2.0](https://spark.apache.org/releases/spark-release-2-2-0.html) on your system. 
 
 ### 2. Setup clickstream
 
