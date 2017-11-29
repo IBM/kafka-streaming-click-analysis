@@ -46,20 +46,37 @@ There are two modes of exercising this Code Pattern:
 
 ### 1. Install Spark and Kafka
 
-Install [Apache Kafka](https://kafka.apache.org/downloads) and [Apache Spark 2.2.0](https://spark.apache.org/releases/spark-release-2-2-0.html) on your system. 
+Install by downloading and extracting a binary distribution from [Apache Kafka](https://kafka.apache.org/downloads)(0.10.2.1 is the recommended version) and [Apache Spark 2.2.0](https://spark.apache.org/releases/spark-release-2-2-0.html) on your system.
 
 ### 2. Setup clickstream
 
 In case an existing clickstream is not available for processing, a simulating clickstream can be used. An external publisher (simulating a real click stream) publishing to a topic `clicks`, on kafka running on <ip:port>, can be setup by 
 
 1. Download the data from: [Wikipedia Clickstream data](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data").
-2. The Kafka distribution comes with a handy command line utility for this purpose, once the data is downloaded and extracted, run:
+
+2. Either point to a cloud hosted kafka service(e.g. [IBM Message hub](https://developer.ibm.com/messaging/message-hub/)) or create one locally using instructions [here](http://kafka.apache.org/quickstart).
+
+3. The Kafka distribution comes with a handy command line utility for this purpose, once the data is downloaded and extracted, run:
 
 ```
 $ tail -200 data/2017_01_en_clickstream.tsv | KAFKA_OPTS="-Djava.security.auth.login.config=config/jaas.conf" bin/kafka-console-producer.sh --broker-list ip:port  --topic clicks --producer.config=config/producer.properties
 ```
 
-*Note: One can use unix head or tail utilities for conveniently specifying the range of rows to be sent for simulating clickstream.*
+**Note:**
+You might need to add credential information to `jaas.conf`, a typical jaas.conf looks like this:
+
+```
+KafkaClient {
+    org.apache.kafka.common.security.plain.PlainLoginModule required
+	username="***"
+	password="*****";
+};
+
+```
+This may not be needed, if the kafka service is running locally.
+
+*One can use unix head or tail utilities for conveniently specifying the range of rows to be sent for simulating clickstream.*
+
 
 ### 3. Run the script
 
@@ -227,7 +244,7 @@ There are several ways to execute the code cells in your notebook:
     panel. Here you can schedule your notebook to be executed once at some future
     time, or repeatedly at your specified interval.
 
-**Note:** A message hub service can also be used in case an existing Kafka service is not available for testing. For this, one can add a data asset and create a message hub service. Credentials can be inserted using instructions given within the [notebook](notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb).
+**Note:** A message hub service can also be used in case an existing Kafka service is not available for testing. For this, one can add a data asset and create a message hub service. Credentials can be inserted using instructions given within the [notebook](notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb). Instructions for simulating a clickstream is already given in the [Setup clickstream](2-setup-clickstream) section above.
 
 ### 4. Save and Share
 
