@@ -10,7 +10,7 @@ Some popular use cases include:
 
 * <b>Targeted advertisement.</b> Similar to <i>recommendation generation</i>, but tracking user clicks across websites and using that information to target advertisement in real-time and more accurately.
 
-* <b>Trending topics.</b> Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets the highest number of user clicks. 
+* <b>Trending topics.</b> Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets the highest number of user clicks.
 
 In this Code Pattern, we will demonstrate how to detect trending topics on [Wikipedia](https://www.wikipedia.org/) in real-time. Apache Kafka is used as a message queue, and the Apache Spark structured streaming engine is used to perform the analytics. This combination is well known for its usability and high throughput, with low-latency characteristics.
 
@@ -50,7 +50,7 @@ Install by downloading and extracting a binary distribution from [Apache Kafka](
 
 ### 2. Setup clickstream
 
-In case an existing clickstream is not available for processing, a simulating clickstream can be used. An external publisher (simulating a real click stream) publishing to a topic `clicks`, on kafka running on <ip:port>, can be setup by 
+In case an existing clickstream is not available for processing, a simulating clickstream can be used. An external publisher (simulating a real click stream) publishing to a topic `clicks`, on kafka running on <ip:port>, can be setup by
 
 1. Download the data from: [Wikipedia Clickstream data](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data").
 
@@ -118,7 +118,7 @@ scala> val records = spark.readStream.format("kafka")
 Process the records:
 
 ```scala
-scala> 
+scala>
     val messages = records.select("value").as[Array[Byte]]
                      .flatMap(x => parseVal(x))
                      .groupBy("curr")
@@ -188,7 +188,7 @@ Sign up for IBM's [Data Science Experience](http://datascience.ibm.com/). By sig
 
 To create these services:
 * Login to your [IBM Cloud](http://bluemix.net) account.
-* Create your Spark service by selecting the service type [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark). If not already used, name your service ``DSX-Spark``. 
+* Create your Spark service by selecting the service type [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark). If not already used, name your service ``DSX-Spark``.
 * Create your Object Storage service by selecting the service type [Cloud Object Storage](https://console.bluemix.net/catalog/infrastructure/object-storage-group). If not already used, name your service ``DSX-ObjectStorage``.
 
 > Note: When creating your Object Storage service, select the ``Swift`` storage type in order to avoid having to pay an upgrade fee.
@@ -200,7 +200,7 @@ Take note of your service names as you will need to select them in the following
 First you must create a new Project:
 * From the [IBM Data Science Experience page](https://apsportal.ibm.com/analytics) either click the ``Get Started`` tab at the top or scroll down to ``Recently updated projects``.
 * Click on ``New project`` under ``Recently updated projects``.
-* Enter a ``Name`` and optional ``Description``. 
+* Enter a ``Name`` and optional ``Description``.
 * For ``Spark Service``, select your Apache Spark service name.
 * For ``Storage Type``, select the ``Object Storage (Swift API)`` option.
 * For ``Target Object Storage Instance``, select your Object Storage service name.
