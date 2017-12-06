@@ -52,31 +52,19 @@ Install by downloading and extracting a binary distribution from [Apache Kafka](
 
 In case an existing clickstream is not available for processing, a simulating clickstream can be used. An external publisher (simulating a real click stream) publishing to a topic `clicks`, on kafka running on <ip:port>, can be setup by
 
-1. Download the data from: [Wikipedia Clickstream data](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data").
+1. Download the data from: [Wikipedia Clickstream data](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data"). Schema for this data is ever evolving, this code pattern is tested with `2017_01_en_clickstream.tsv.gz`.
 
-2. Either point to a cloud hosted kafka service(e.g. [IBM Message hub](https://developer.ibm.com/messaging/message-hub/)) or create one locally using instructions [here](http://kafka.apache.org/quickstart).
+2. Create a kafka service instance locally using instructions [here](http://kafka.apache.org/quickstart), also create a topic `clicks`.
 
-3. The Kafka distribution comes with a handy command line utility for this purpose, once the data is downloaded and extracted, run:
-
-```
-$ tail -200 data/2017_01_en_clickstream.tsv | KAFKA_OPTS="-Djava.security.auth.login.config=config/jaas.conf" bin/kafka-console-producer.sh --broker-list ip:port  --topic clicks --producer.config=config/producer.properties
-```
-
-**Note:**
-You might need to add credential information to `jaas.conf`, a typical jaas.conf looks like this:
+3. The Kafka distribution comes with a handy command line utility for uploading data to kafka service, once the data is downloaded and extracted, run:
 
 ```
-KafkaClient {
-    org.apache.kafka.common.security.plain.PlainLoginModule required
-	username="***"
-	password="*****";
-};
-
+$ tail -200 data/2017_01_en_clickstream.tsv | bin/kafka-console-producer.sh --broker-list <ip:port>  --topic clicks --producer.config=config/producer.properties
 ```
-This may not be needed, if the kafka service is running locally.
 
-*One can use unix head or tail utilities for conveniently specifying the range of rows to be sent for simulating clickstream.*
+*Note: Replace <ip:port> with the correct values of ip and port of running kafka service. In this case, since it is started locally, localhost:9092 is the default and can be used in place of <ip:port> above.*
 
+*Tip: Unix head or tail utilities can be used for conveniently specifying the range of rows to be sent for simulating clickstream.*
 
 ### 3. Run the script
 
@@ -89,12 +77,12 @@ $ bin/spark-shell --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.2.0
 
 In the spark shell prompt, specify the schema of the incoming wikipedia clickstream and parse method:
 
+*Tip: For conveniently copy and pasting commands into spark shell, spark-shell supports a `:paste` mode*
+
 ```scala
 scala> import scala.util.Try
-import scala.util.Try
 
 scala> case class Click(prev: String, curr: String, link: String, n: Long)
-defined class Click
 
 scala> def parseVal(x: Array[Byte]): Option[Click] = {
     val split: Array[String] = new Predef.String(x).split("\\t")
@@ -103,10 +91,12 @@ scala> def parseVal(x: Array[Byte]): Option[Click] = {
     } else
       None
   }
-       |      |      |      |      |      | parseVal: (x: Array[Byte])Option[Click]
+
 ```
 
 Setup structured streaming to read from Kafka:
+
+*Note: Replace <ip:port> with the correct values of ip and port of running kafka service. Incase, it is started locally, localhost:9092 is the default and can be used in place of <ip:port> below.*
 
 ```scala
 scala> val records = spark.readStream.format("kafka")
@@ -180,7 +170,8 @@ clickstream analytics that can be done.
 1. [Sign up for the Data Science Experience](#1-sign-up-for-the-data-science-experience).
 2. [Create the notebook](#2-create-the-notebook).
 3. [Run the notebook](#3-run-the-notebook).
-4. [Save and Share](#4-save-and-share).
+4. [Upload data](#4-upload-data).
+5. [Save and Share](#5-save-and-share).
 
 ### 1. Sign up for the Data Science Experience
 
@@ -212,13 +203,23 @@ Create the Notebook:
 * Click on your project to open up the project details panel.
 * Click ``add notebooks``.
 * Click the tab for ``From URL`` and enter a ``Name`` and optional ``Description``.
-* For ``Notebook URL`` enter: https://github.com/IBM/kafka-streaming/blob/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb
+* For ``Notebook URL`` enter: https://raw.githubusercontent.com/IBM/kafka-streaming/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb
 * For ``Spark Service``, select your Apache Spark service name.
 * Click ``Create Notebook``.
 
 ![](doc/source/images/create-notebook.png)
 
 ### 3. Run the notebook
+
+Before running the notebook, you will need to setup a [Message hub](https://developer.ibm.com/messaging/message-hub/) service. 
+
+**Note:** Message hub is a paid service.
+
+* For creating a Message hub service, go to `Data services-> Services` tab on the dashboard. Select the option to create a message hub service following the on screen instructions. Post creating service instance, select it and create a topic `clicks` with defaults.
+
+* Once the service is running, it has to be added to the current notebook. For this, first we need to create a connection for this message hub service instance. Go to `Data services-> connections` tab on dashboard and create new connection filling in the details and referring to the above created service instance in the Service instance section and then select topic `clicks`. Once done, go to `Assets` tab on the project dashboard and then click `+New data asset`. Then locate the created message hub service connection under the connections tab and click `Apply`.
+
+* Once the service is added to the notebook, credentials to access it can be auto inserted. Please follow comments with-in the loaded notebook, for instructions on how to insert credentials. Once the credentials are inserted it is ready for execution.
 
 When a notebook is executed, what is actually happening is that each code cell in
 the notebook is executed, in order, from top to bottom.
@@ -244,9 +245,36 @@ There are several ways to execute the code cells in your notebook:
     panel. Here you can schedule your notebook to be executed once at some future
     time, or repeatedly at your specified interval.
 
-**Note:** A message hub service can also be used in case an existing Kafka service is not available for testing. For this, one can add a data asset and create a message hub service. Credentials can be inserted using instructions given within the [notebook](notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb). Instructions for simulating a clickstream is already given in the [Setup clickstream](2-setup-clickstream) section above.
 
-### 4. Save and Share
+### 4. Upload data
+
+For uploading data to [Message hub](https://developer.ibm.com/messaging/message-hub/) or Apache Kafka as a service, one of the simplest ways, is to use the kafka command line utility. For this one needs to: 
+
+1) Download kafka distribution binary from [here](https://kafka.apache.org/downloads).
+
+2) Download data as described in [Step 2 of running locally](#2-setup-clickstream)
+
+After downloading and extracting the kafka distribution binary and the data, run the command as follows: 
+
+```
+tail -200 data/2017_01_en_clickstream.tsv | KAFKA_OPTS="-Djava.security.auth.login.config=config/jaas.conf" bin/kafka-console-producer.sh --broker-list ip:port  --topic clicks --producer.config=config/producer.properties
+
+```
+*Replace ip:port with broker urls found in the credentials section of the message hub service.*
+
+**Note:** You might need to add credential information to jaas.conf, a typical jaas.conf looks like this:
+
+```
+KafkaClient {
+    org.apache.kafka.common.security.plain.PlainLoginModule required
+	username="***"
+	password="*****";
+};
+
+```
+*Substitute the values of `username` and `password` from the inserted `credentials` section of the notebook, found in the previous step.*
+
+### 5. Save and Share
 
 #### How to save your work:
 
