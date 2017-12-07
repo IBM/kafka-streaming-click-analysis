@@ -54,7 +54,7 @@ Install by downloading and extracting a binary distribution from [Apache Kafka](
 
 Use the following steps to setup a simulation clickstream that uses data from an external publisher:
 
-1. Download and extract the `Wikipedia Clickstream` data from [here](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data"). Select the data set that was used to test this Code Pattern -  `2017_01_en_clickstream.tsv.gz`.
+1. Download and extract the `Wikipedia Clickstream` data from [here](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data"). Since the schema for this data is ever evolving, you may select the data set that was used to test this Code Pattern -  `2017_01_en_clickstream.tsv.gz`.
 
 2. Create and run a local Kafka service instance by following the instructions listed [here](http://kafka.apache.org/quickstart). Be sure to create a topic named `clicks`.
 
@@ -263,7 +263,7 @@ $ cd kafka_2.10-0.10.2.1
 $ tail -200 data/2017_01_en_clickstream.tsv | KAFKA_OPTS="-Djava.security.auth.login.config=config/jaas.conf" bin/kafka-console-producer.sh --broker-list ip:port --topic clicks --producer.config=config/producer.properties
 
 ```
-**Note:** You might need to add credential information to the `jaas.conf` config file. It typical has the following format:
+**Note:** You might need to add credential information to the `jaas.conf` config file. It typically has the following format:
 
 ```
 KafkaClient {
