@@ -1,8 +1,8 @@
 # Clickstream Analysis using Apache Spark and Apache Kafka
 
-Clickstream analysis offers useful information about the usage characteristics of a website.
+Clickstream analysis is the process of collecting, analzing, and reporting about which web pages a user visits, and can offer useful information about the usage characteristics of a website.
 
-Some popular use cases include:
+Some popular use cases for clickstream analysis include:
 
 * <b>A/B Testing.</b> Statistically study how users of a web site are affected by changes from version A to B. [Read more](https://en.wikipedia.org/wiki/A/B_testing)
 
@@ -12,7 +12,7 @@ Some popular use cases include:
 
 * <b>Trending topics.</b> Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets the highest number of user clicks.
 
-In this Code Pattern, we will demonstrate how to detect trending topics on [Wikipedia](https://www.wikipedia.org/) in real-time. Apache Kafka is used as a message queue, and the Apache Spark structured streaming engine is used to perform the analytics. This combination is well known for its usability and high throughput, with low-latency characteristics.
+In this Code Pattern, we will demonstrate how to detect real-time trending topics on the [Wikipedia](https://www.wikipedia.org/) web site. To perform this task, Apache Kafka will be used as a message queue, and the Apache Spark structured streaming engine will be used to perform the analytics. This combination is well known for its usability, high throughput and low-latency characteristics.
 
 When you complete this Code Pattern, you will understand how to:
 
@@ -37,34 +37,37 @@ When you complete this Code Pattern, you will understand how to:
 
 There are two modes of exercising this Code Pattern:
 * [Run locally using the Spark shell](#run-locally).
-* [Run using a Jupyter notebook in the IBM Data Science Experience](#run-using-a-jupyter-notebook-in-the-ibm-data-science-experience).
+* [Run using a Jupyter notebook in the IBM Data Science Experience](#run-using-a-jupyter-notebook-in-the-ibm-data-science-experience). *Note: Running in this mode  requires a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service, which charges a nominal fee.*
 
 ## Run locally
-1. [Install Spark and Kafka](#1-install-spark-and-kafka).
-2. [Setup clickstream](#2-setup-clickstream).
-3. [Run the script](#3-run-the-script).
+1. [Install Spark and Kafka](#1-install-spark-and-kafka)
+2. [Setup and run a simulated clickstream](#2-setup-and-run-a-simulated-clickstream)
+3. [Run the script](#3-run-the-script)
 
 ### 1. Install Spark and Kafka
 
-Install by downloading and extracting a binary distribution from [Apache Kafka](https://kafka.apache.org/downloads)(0.10.2.1 is the recommended version) and [Apache Spark 2.2.0](https://spark.apache.org/releases/spark-release-2-2-0.html) on your system.
+Install by downloading and extracting a binary distribution from [Apache Kafka](https://kafka.apache.org/downloads) (0.10.2.1 is the recommended version) and [Apache Spark 2.2.0](https://spark.apache.org/releases/spark-release-2-2-0.html) on your system.
 
-### 2. Setup clickstream
+### 2. Setup and run a simulated clickstream
 
-In case an existing clickstream is not available for processing, a simulating clickstream can be used. An external publisher (simulating a real click stream) publishing to a topic `clicks`, on kafka running on <ip:port>, can be setup by
+*Note: These steps can be skipped if you already have a clickstream available for processing. If so, create and stream data to the topic named 'clicks' before proceeding to the next step.*
 
-1. Download the data from: [Wikipedia Clickstream data](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data"). Schema for this data is ever evolving, this code pattern is tested with `2017_01_en_clickstream.tsv.gz`.
+Use the following steps to setup a simulation clickstream that uses data from an external publisher:
 
-2. Create a kafka service instance locally using instructions [here](http://kafka.apache.org/quickstart), also create a topic `clicks`.
+1. Download and extract the `Wikipedia Clickstream` data from [here](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data"). Select the data set that was used to test this Code Pattern -  `2017_01_en_clickstream.tsv.gz`.
 
-3. The Kafka distribution comes with a handy command line utility for uploading data to kafka service, once the data is downloaded and extracted, run:
+2. Create and run a local Kafka service instance by following the instructions listed [here](http://kafka.apache.org/quickstart). Be sure to create a topic named `clicks`.
+
+3. The Kafka distribution comes with a handy command line utility for uploading data to the Kafka service. To process the simulated Wikipedia data, run the following commands:
+
+*Note: Replace `ip:port` with the correct values of the running Kafka service, which is defaulted to `localhost:9092` when running locally.*
 
 ```
-$ tail -200 data/2017_01_en_clickstream.tsv | bin/kafka-console-producer.sh --broker-list <ip:port>  --topic clicks --producer.config=config/producer.properties
+$ cd kafka_2.10-0.10.2.1
+$ tail -200 data/2017_01_en_clickstream.tsv | bin/kafka-console-producer.sh --broker-list ip:port --topic clicks --producer.config=config/producer.properties
 ```
 
-*Note: Replace <ip:port> with the correct values of ip and port of running kafka service. In this case, since it is started locally, localhost:9092 is the default and can be used in place of <ip:port> above.*
-
-*Tip: Unix head or tail utilities can be used for conveniently specifying the range of rows to be sent for simulating clickstream.*
+*Tip: Unix head or tail utilities can be used for conveniently specifying the range of rows to be sent for simulating the clickstream.*
 
 ### 3. Run the script
 
@@ -77,7 +80,7 @@ $ bin/spark-shell --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.2.0
 
 In the spark shell prompt, specify the schema of the incoming wikipedia clickstream and parse method:
 
-*Tip: For conveniently copy and pasting commands into spark shell, spark-shell supports a `:paste` mode*
+*Tip: For conveniently copying and pasting commands into the spark shell, spark-shell supports a `:paste` mode*
 
 ```scala
 scala> import scala.util.Try
@@ -96,13 +99,13 @@ scala> def parseVal(x: Array[Byte]): Option[Click] = {
 
 Setup structured streaming to read from Kafka:
 
-*Note: Replace <ip:port> with the correct values of ip and port of running kafka service. Incase, it is started locally, localhost:9092 is the default and can be used in place of <ip:port> below.*
+*Note: Replace `ip:port` with the correct values of ip and port of the running Kafka service, which is defaulted to `localhost:9092` when running locally.*
 
 ```scala
 scala> val records = spark.readStream.format("kafka")
                       .option("subscribe", "clicks")
                       .option("failOnDataLoss", "false")
-                      .option("kafka.bootstrap.servers", "<ip:port>").load()
+                      .option("kafka.bootstrap.servers", "ip:port").load()
 ```
 
 Process the records:
@@ -159,19 +162,17 @@ only showing top 20 rows
 
 --------------------------------------------------------------
 
-The resultant table shows the wikipedia pages with the maximum number of hits. This table updates automatically as soon as more data arrives from Kafka. Unless specified otherwise, structured streaming performs processing as soon as it sees any data.
+The resultant table shows the Wikipedia pages that had the most hits. This table updates automatically whenever more data arrives from Kafka. Unless specified otherwise, structured streaming performs processing as soon as it sees any data.
 
-Here we assume the higher number of clicks indicates a "Hot topic" or "Trending topic".
-Please feel free to contribute more ideas on how to improve, and even more type of
-clickstream analytics that can be done.
+Here we assume the higher number of clicks indicates a "Hot topic" or "Trending topic". Please feel free to contribute any ideas on how to improve this, or thoughts on any other types of clickstream analytics that can be done.
 
 ## Run using a Jupyter notebook in the IBM Data Science Experience
 
-1. [Sign up for the Data Science Experience](#1-sign-up-for-the-data-science-experience).
-2. [Create the notebook](#2-create-the-notebook).
-3. [Run the notebook](#3-run-the-notebook).
-4. [Upload data](#4-upload-data).
-5. [Save and Share](#5-save-and-share).
+1. [Sign up for the Data Science Experience](#1-sign-up-for-the-data-science-experience)
+2. [Create the notebook](#2-create-the-notebook)
+3. [Run the notebook](#3-run-the-notebook)
+4. [Upload data](#4-upload-data)
+5. [Save and Share](#5-save-and-share)
 
 ### 1. Sign up for the Data Science Experience
 
@@ -211,15 +212,15 @@ Create the Notebook:
 
 ### 3. Run the notebook
 
-Before running the notebook, you will need to setup a [Message hub](https://developer.ibm.com/messaging/message-hub/) service. 
+Before running the notebook, you will need to setup a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service.
 
-**Note:** Message hub is a paid service.
+**Note:** Message Hub is a paid service.
 
-* For creating a Message hub service, go to `Data services-> Services` tab on the dashboard. Select the option to create a message hub service following the on screen instructions. Post creating service instance, select it and create a topic `clicks` with defaults.
+* For creating a Message Hub service, go to `Data services-> Services` tab on the dashboard. Select the option to create a Message Hub service and follow the on-screen instructions. Post creating service instance, select it and create a topic `clicks` with defaults.
 
-* Once the service is running, it has to be added to the current notebook. For this, first we need to create a connection for this message hub service instance. Go to `Data services-> connections` tab on dashboard and create new connection filling in the details and referring to the above created service instance in the Service instance section and then select topic `clicks`. Once done, go to `Assets` tab on the project dashboard and then click `+New data asset`. Then locate the created message hub service connection under the connections tab and click `Apply`.
+* Once the service is running, it has to be added to the current notebook. For this, first we need to create a connection for this Message Hub service instance. Go to `Data services-> connections` tab on dashboard and create new connection filling in the details and referring to the above created service instance in the Service instance section and then select topic `clicks`. Once done, go to `Assets` tab on the project dashboard and then click `+New data asset`. Then locate the created Message Hub service connection under the connections tab and click `Apply`.
 
-* Once the service is added to the notebook, credentials to access it can be auto inserted. Please follow comments with-in the loaded notebook, for instructions on how to insert credentials. Once the credentials are inserted it is ready for execution.
+* Once the service is added to the notebook, credentials to access it can be auto inserted. Please follow the comments found in the loaded notebook for instructions on how to insert the credentials. Once the credentials are inserted it is ready for execution.
 
 When a notebook is executed, what is actually happening is that each code cell in
 the notebook is executed, in order, from top to bottom.
@@ -248,21 +249,21 @@ There are several ways to execute the code cells in your notebook:
 
 ### 4. Upload data
 
-For uploading data to [Message hub](https://developer.ibm.com/messaging/message-hub/) or Apache Kafka as a service, one of the simplest ways, is to use the kafka command line utility. For this one needs to: 
+For uploading data to the [Message Hub](https://developer.ibm.com/messaging/message-hub/) or Apache Kafka as a service, use the kafka command line utility. Using the detailed instructions found in the [Setup and run a simulated clickstream](#2-setup-and-run-a-simulated-clickstream) section above, you need to:
 
-1) Download kafka distribution binary from [here](https://kafka.apache.org/downloads).
+1) Download the Wikipedia data.
+2) Download the Kafka distribution binary.
 
-2) Download data as described in [Step 2 of running locally](#2-setup-clickstream)
+After downloading and extracting the Kafka distribution binary and the data, run the command as follows:
 
-After downloading and extracting the kafka distribution binary and the data, run the command as follows: 
-
-```
-tail -200 data/2017_01_en_clickstream.tsv | KAFKA_OPTS="-Djava.security.auth.login.config=config/jaas.conf" bin/kafka-console-producer.sh --broker-list ip:port  --topic clicks --producer.config=config/producer.properties
+*Note: Replace `ip:port` with the broker urls found in the credentials section of the Message Hub service.*
 
 ```
-*Replace ip:port with broker urls found in the credentials section of the message hub service.*
+$ cd kafka_2.10-0.10.2.1
+$ tail -200 data/2017_01_en_clickstream.tsv | KAFKA_OPTS="-Djava.security.auth.login.config=config/jaas.conf" bin/kafka-console-producer.sh --broker-list ip:port --topic clicks --producer.config=config/producer.properties
 
-**Note:** You might need to add credential information to jaas.conf, a typical jaas.conf looks like this:
+```
+**Note:** You might need to add credential information to the `jaas.conf` config file. It typical has the following format:
 
 ```
 KafkaClient {
