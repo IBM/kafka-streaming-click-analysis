@@ -60,7 +60,7 @@ Use the following steps to setup a simulation clickstream that uses data from an
 
 3. The Kafka distribution comes with a handy command line utility for uploading data to the Kafka service. To process the simulated Wikipedia data, run the following commands:
 
-*Note: Replace `ip:port` with the correct values of the running Kafka service, which is defaulted to `localhost:2181` when running locally.*
+*Note: Replace `ip:port` with the correct values of the running Kafka service, which is defaulted to `localhost:9092` when running locally.*
 
 ```
 $ cd kafka_2.10-0.10.2.1
@@ -99,7 +99,7 @@ scala> def parseVal(x: Array[Byte]): Option[Click] = {
 
 Setup structured streaming to read from Kafka:
 
-*Note: Replace `ip:port` with the correct values of ip and port of the running Kafka service, which is defaulted to `localhost:2181` when running locally.*
+*Note: Replace `ip:port` with the correct values of ip and port of the running Kafka service, which is defaulted to `localhost:9092` when running locally.*
 
 ```scala
 scala> val records = spark.readStream.format("kafka")
