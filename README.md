@@ -249,12 +249,10 @@ There are several ways to execute the code cells in your notebook:
 
 ### 4. Upload data
 
-For uploading data to the [Message Hub](https://developer.ibm.com/messaging/message-hub/) or Apache Kafka as a service, use the kafka command line utility. Using the instructions found in the [Setup and run a simulated clickstream](#2-setup-and-run-a-simulated-clickstream) section above, you need to:
+For uploading data to the [Message Hub](https://developer.ibm.com/messaging/message-hub/) or Apache Kafka as a service, use the kafka command line utility. Using the detailed instructions found in the [Setup and run a simulated clickstream](#2-setup-and-run-a-simulated-clickstream) section above, you need to:
 
 1) Download the Wikipedia data.
 2) Download the Kafka distribution binary.
-
-*Note: See more detailed instructions on how to do this by going to the [Setup and run a simulated clickstream](#2-setup-and-run-a-simulated-clickstream) section above.
 
 After downloading and extracting the Kafka distribution binary and the data, run the command as follows:
 
