@@ -119,7 +119,7 @@ scala>
                      .sort($"sum(n)".desc)
 ```
 
-Output to the console and start streaming:
+Output to the console and start streaming data (using the `tail` clickstream command descibed above) :
 
 ```scala
 val query = messages.writeStream
@@ -174,6 +174,8 @@ Here we assume the higher number of clicks indicates a "Hot topic" or "Trending 
 4. [Upload data](#4-upload-data)
 5. [Save and Share](#5-save-and-share)
 
+*Note: Running this part of the Code Pattern requires a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service, which charges a nominal fee.*
+
 ### 1. Sign up for the Data Science Experience
 
 Sign up for IBM's [Data Science Experience](http://datascience.ibm.com/). By signing up for the Data Science Experience, two services: ``DSX-Spark`` and ``DSX-ObjectStore`` will be created in your IBM Cloud account. If these services do not exist, or if you are already using them for some other application, you will need to create new instances.
@@ -214,13 +216,15 @@ Create the Notebook:
 
 Before running the notebook, you will need to setup a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service.
 
-**Note:** Message Hub is a paid service.
+* To create a Message Hub service, go to the `Data Services-> Services` tab on the IBM Data Science Experience (DSX) dashboard. Click `Create`, then select the Message Hub service. Select the `Standard` plan then follow the on-screen instructions to create the service. Once created, select the Message Hub service instance to bring up the details panel where you can create a topic. In the create form, name the topic `clicks` and leave the other fields with their default values.
 
-* For creating a Message Hub service, go to `Data services-> Services` tab on the dashboard. Select the option to create a Message Hub service and follow the on-screen instructions. Post creating service instance, select it and create a topic `clicks` with defaults.
+* Next create a connection to this service so that it can be added as an asset to the project. Go to the `Data Services-> Connections` tab on the DSX dashboard. Click `Create New` to create a connection. Provide a unique name and then select the just created Message Hub instance as the `Service Instance` connection.
 
-* Once the service is running, it has to be added to the current notebook. For this, first we need to create a connection for this Message Hub service instance. Go to `Data services-> connections` tab on dashboard and create new connection filling in the details and referring to the above created service instance in the Service instance section and then select topic `clicks`. Once done, go to `Assets` tab on the project dashboard and then click `+New data asset`. Then locate the created Message Hub service connection under the connections tab and click `Apply`.
+* Next attach the connection as an asset to the project. Go to the `Assets` tab on your project dashboard. Click on `Add to project` and select the `Data Asset` option. Then click on the `Connections` tab and select your just created connection. Click 'Apply' to add the connection.
 
-* Once the service is added to the notebook, credentials to access it can be auto inserted. Please follow the comments found in the loaded notebook for instructions on how to insert the credentials. Once the credentials are inserted it is ready for execution.
+The notebook is now ready to be run. The first step in the notebook is to insert credentials for the Message Hub connection you just created. To do this, start the notebook in edit mode and select code cell '[1]'. Then click on the `1001` button located in the top right corner of the notebook. Select the `Connections` tab to see your Message Hub connector. Click the `Insert to code` button to download the Message Hub credentials data into code cell `[1]`.
+
+> Note: Make sure you rename the credentials object to `credentials_1`.
 
 When a notebook is executed, what is actually happening is that each code cell in
 the notebook is executed, in order, from top to bottom.
@@ -256,14 +260,14 @@ For uploading data to the [Message Hub](https://developer.ibm.com/messaging/mess
 
 After downloading and extracting the Kafka distribution binary and the data, run the command as follows:
 
-*Note: Replace `ip:port` with the broker urls found in the credentials section of the Message Hub service.*
+*Note: Replace `ip:port` with the `kafka_brokers_sasl` value found in the credentials section of the Message Hub service.*
 
 ```
 $ cd kafka_2.10-0.10.2.1
 $ tail -200 data/2017_01_en_clickstream.tsv | KAFKA_OPTS="-Djava.security.auth.login.config=config/jaas.conf" bin/kafka-console-producer.sh --broker-list ip:port --topic clicks --producer.config=config/producer.properties
 
 ```
-**Note:** You might need to add credential information to the `jaas.conf` config file. It typically has the following format:
+**Note:** You might need to add credential information to the `jaas.conf` config file. Create this file in the `kafka_2.10-0.10.2.1/config` directory. Use the following format, substituting your Message Hub credentials for username and password:
 
 ```
 KafkaClient {
@@ -273,7 +277,6 @@ KafkaClient {
 };
 
 ```
-*Substitute the values of `username` and `password` from the inserted `credentials` section of the notebook, found in the previous step.*
 
 ### 5. Save and Share
 
