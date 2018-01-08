@@ -23,10 +23,10 @@ When you complete this Code Pattern, you will understand how to:
 
 ## Flow
 
-1. A running instance of a clickstream, over an Apache Kafka service.
-2. Apache Spark reads the clickstream from a specified topic of an Apache Kafka service.
-3. The notebook is run using IBM's Data Science Experience (or run locally).
-4. The processed stream is printed to console.
+1. User connects with Apache Kafka service and sets up a running instance of a clickstream.
+2. Run a Jupyter Notebook in IBM's Data Science Experience that interacts with the underlying Apack Spark service. Alternatively, this can be done locally by running the Spark Shell.
+3. The Spark service reads and processes data from the Kafka service.
+4. Processed Kafka data is relayed back to the user via the Jupyter Nodebook (or console sink if running locally). 
 
 ## Included components
 
