@@ -260,23 +260,15 @@ For uploading data to the [Message Hub](https://developer.ibm.com/messaging/mess
 
 After downloading and extracting the Kafka distribution binary and the data, run the command as follows:
 
-*Note: Replace `ip:port` with the `kafka_brokers_sasl` value found in the credentials section of the Message Hub service.*
+*Note: Replace `ip:port` with the `kafka_brokers_sasl` value found in the credentials section of the notebook, described in previous step.*
 
 ```
 $ cd kafka_2.10-0.10.2.1
-$ tail -200 data/2017_01_en_clickstream.tsv | KAFKA_OPTS="-Djava.security.auth.login.config=config/jaas.conf" bin/kafka-console-producer.sh --broker-list ip:port --topic clicks --producer.config=config/producer.properties
+$ tail -200 data/2017_01_en_clickstream.tsv | bin/kafka-console-producer.sh --broker-list ip:port --request-timeout-ms 30000 --topic clicks --producer.config=config/messagehub.properties
 
 ```
-**Note:** You might need to add credential information to the `jaas.conf` config file. Create this file in the `kafka_2.10-0.10.2.1/config` directory. Use the following format, substituting your Message Hub credentials for username and password:
+**Note:** You might need to download and add credential information to the [config/messagehub.properties](config/messagehub.properties) config file. Move this file in to the kafka_2.10-0.10.2.1/config directory. Replace the asterisk, with your Message Hub credentials for username and password, found in credentials section of the notebook, described in previous step.
 
-```
-KafkaClient {
-    org.apache.kafka.common.security.plain.PlainLoginModule required
-	username="***"
-	password="*****";
-};
-
-```
 
 ### 5. Save and Share
 
