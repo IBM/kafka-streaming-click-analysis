@@ -257,6 +257,7 @@ For uploading data to the [Message Hub](https://developer.ibm.com/messaging/mess
 
 1) Download the Wikipedia data.
 2) Download the Kafka distribution binary.
+3) Download [config/messagehub.properties](config/messagehub.properties) config file and update message hub credentials, found in the credentials section of the notebook. (*Please note: Ignore extra set of double quotes in the password(if any), while copying it.*)
 
 After downloading and extracting the Kafka distribution binary and the data, run the command as follows:
 
@@ -267,8 +268,6 @@ $ cd kafka_2.10-0.10.2.1
 $ tail -200 data/2017_01_en_clickstream.tsv | bin/kafka-console-producer.sh --broker-list ip:port --request-timeout-ms 30000 --topic clicks --producer.config=config/messagehub.properties
 
 ```
-**Note:** You might need to download and add credential information to the [config/messagehub.properties](config/messagehub.properties) config file. Move this file in to the kafka_2.10-0.10.2.1/config directory. Replace the asterisk, with your Message Hub credentials for username and password, found in credentials section of the notebook, described in previous step.
-
 
 ### 5. Save and Share
 
