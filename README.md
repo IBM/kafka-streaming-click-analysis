@@ -30,8 +30,11 @@ When you complete this Code Pattern, you will understand how to:
 
 ## Included components
 
+* [IBM Data Science Experience](https://www.ibm.com/bs-en/marketplace/data-science-experience): Analyze data using RStudio, Jupyter, and Python in a configured, collaborative environment that includes IBM value-adds, such as managed Spark.
 * [Apache Spark](http://spark.apache.org/): An open-source distributed computing framework that allows you to perform large-scale data processing.
 * [Apache Kafka](http://kafka.apache.org): Kafka is used for building real-time data pipelines and streaming apps. It is designed to be horizontally scalable, fault-tolerant and fast.
+* [Jupyter Notebook](http://jupyter.org/): An open source web application that allows you to create and share documents that contain live code, equations, visualizations, and explanatory text.
+* [Message Hub](https://console.ng.bluemix.net/catalog/services/message-hub): A scalable, high-throughput message bus. Wire micro-services together using open protocols.
 
 # Steps
 
