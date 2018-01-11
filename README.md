@@ -1,6 +1,6 @@
 # Clickstream Analysis using Apache Spark and Apache Kafka
 
-Clickstream analysis is the process of collecting, analzing, and reporting about which web pages a user visits, and can offer useful information about the usage characteristics of a website.
+Clickstream analysis is the process of collecting, analyzing, and reporting about which web pages a user visits, and can offer useful information about the usage characteristics of a website.
 
 Some popular use cases for clickstream analysis include:
 
@@ -16,6 +16,8 @@ In this Code Pattern, we will demonstrate how to detect real-time trending topic
 
 When you complete this Code Pattern, you will understand how to:
 
+* Use [Jupyter Notebooks](http://jupyter.org/) to load, visualize, and analyze data
+* Run Notebooks in [IBM Data Science Experience](https://datascience.ibm.com/)
 * Perform clickstream analysis using Apache Spark Structured Streaming.
 * Build a low-latency processing stream utilizing Apache Kafka.
 
