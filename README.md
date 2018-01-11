@@ -1,6 +1,6 @@
 # Clickstream Analysis using Apache Spark and Apache Kafka
 
-Clickstream analysis is the process of collecting, analzing, and reporting about which web pages a user visits, and can offer useful information about the usage characteristics of a website.
+Clickstream analysis is the process of collecting, analyzing, and reporting about which web pages a user visits, and can offer useful information about the usage characteristics of a website.
 
 Some popular use cases for clickstream analysis include:
 
