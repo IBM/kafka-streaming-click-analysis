@@ -38,6 +38,10 @@ When you complete this Code Pattern, you will understand how to:
 * [Jupyter Notebook](http://jupyter.org/): An open source web application that allows you to create and share documents that contain live code, equations, visualizations, and explanatory text.
 * [Message Hub](https://console.ng.bluemix.net/catalog/services/message-hub): A scalable, high-throughput message bus. Wire micro-services together using open protocols.
 
+# Watch the Video
+
+[![](http://img.youtube.com/vi/-3QY1gT5oao/0.jpg)](https://www.youtube.com/watch?v=-3QY1gT5oao)
+
 # Steps
 
 There are two modes of exercising this Code Pattern:
