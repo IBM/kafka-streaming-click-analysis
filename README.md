@@ -17,8 +17,8 @@ In this Code Pattern, we will demonstrate how to detect real-time trending topic
 When you complete this Code Pattern, you will understand how to:
 
 * Use [Jupyter Notebooks](http://jupyter.org/) to load, visualize, and analyze data
-* Run Notebooks in [IBM Data Science Experience](https://datascience.ibm.com/)
-* Perform clickstream analysis using Apache Spark Structured Streaming.
+* Run streaming analytics intractively using Notebooks in [IBM Data Science Experience](https://datascience.ibm.com/)
+* Interactively develop clickstream analysis using Apache Spark Structured Streaming on a Spark Shell
 * Build a low-latency processing stream utilizing Apache Kafka.
 
 ![](doc/source/images/architecture.png)
