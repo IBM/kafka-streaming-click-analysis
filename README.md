@@ -8,7 +8,7 @@ Some popular use cases for clickstream analysis include:
 
 * <b>Recommendation generation on shopping portals.</b> Click patterns of users of a shopping portal website, indicate how a user was influenced into buying something. This information can be used as a recommendation generation for future such patterns of clicks.
 
-* <b>Targeted advertisement.</b> Similar to <i>recommendation generation</i>, but tracking user clicks across websites and using that information to target advertisement in real-time and more accurately.
+* <b>Targeted advertisement.</b> Similar to <i>recommendation generation</i>, but tracking user clicks "across websites" and using that information to target advertisement in real-time.
 
 * <b>Trending topics.</b> Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets the highest number of user clicks.
 
@@ -17,8 +17,8 @@ In this Code Pattern, we will demonstrate how to detect real-time trending topic
 When you complete this Code Pattern, you will understand how to:
 
 * Use [Jupyter Notebooks](http://jupyter.org/) to load, visualize, and analyze data
-* Run Notebooks in [IBM Data Science Experience](https://datascience.ibm.com/)
-* Perform clickstream analysis using Apache Spark Structured Streaming.
+* Run streaming analytics intractively using Notebooks in [IBM Data Science Experience](https://datascience.ibm.com/)
+* Interactively develop clickstream analysis using Apache Spark Structured Streaming on a Spark Shell
 * Build a low-latency processing stream utilizing Apache Kafka.
 
 ![](doc/source/images/architecture.png)
