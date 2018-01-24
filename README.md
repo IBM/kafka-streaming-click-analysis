@@ -8,7 +8,7 @@ Some popular use cases for clickstream analysis include:
 
 * <b>Recommendation generation on shopping portals.</b> Click patterns of users of a shopping portal website, indicate how a user was influenced into buying something. This information can be used as a recommendation generation for future such patterns of clicks.
 
-* <b>Targeted advertisement.</b> Similar to <i>recommendation generation</i>, but tracking user clicks across websites and using that information to target advertisement in real-time and more accurately.
+* <b>Targeted advertisement.</b> Similar to <i>recommendation generation</i>, but tracking user clicks "across websites" and using that information to target advertisement in real-time.
 
 * <b>Trending topics.</b> Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets the highest number of user clicks.
 
