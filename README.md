@@ -17,7 +17,7 @@ In this Code Pattern, we will demonstrate how to detect real-time trending topic
 When you complete this Code Pattern, you will understand how to:
 
 * Use [Jupyter Notebooks](http://jupyter.org/) to load, visualize, and analyze data
-* Run streaming analytics intractively using Notebooks in [IBM Data Science Experience](https://datascience.ibm.com/)
+* Run streaming analytics interactively using Notebooks in [IBM Data Science Experience](https://datascience.ibm.com/)
 * Interactively develop clickstream analysis using Apache Spark Structured Streaming on a Spark Shell
 * Build a low-latency processing stream utilizing Apache Kafka.
 
@@ -26,9 +26,9 @@ When you complete this Code Pattern, you will understand how to:
 ## Flow
 
 1. User connects with Apache Kafka service and sets up a running instance of a clickstream.
-2. Run a Jupyter Notebook in IBM's Data Science Experience that interacts with the underlying Apack Spark service. Alternatively, this can be done locally by running the Spark Shell.
+2. Run a Jupyter Notebook in IBM's Data Science Experience that interacts with the underlying Apache Spark service. Alternatively, this can be done locally by running the Spark Shell.
 3. The Spark service reads and processes data from the Kafka service.
-4. Processed Kafka data is relayed back to the user via the Jupyter Nodebook (or console sink if running locally). 
+4. Processed Kafka data is relayed back to the user via the Jupyter Notebook (or console sink if running locally). 
 
 ## Included components
 
@@ -46,7 +46,7 @@ When you complete this Code Pattern, you will understand how to:
 
 There are two modes of exercising this Code Pattern:
 * [Run locally using the Spark shell](#run-locally).
-* [Run using a Jupyter notebook in the IBM Data Science Experience](#run-using-a-jupyter-notebook-in-the-ibm-data-science-experience). *Note: Running in this mode  requires a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service, which charges a nominal fee.*
+* [Run using a Jupyter notebook in the IBM Data Science Experience](#run-using-a-jupyter-notebook-in-the-ibm-data-science-experience). *Note: Running in this mode requires a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service, which charges a nominal fee.*
 
 ## Run locally
 1. [Install Spark and Kafka](#1-install-spark-and-kafka)
@@ -128,7 +128,7 @@ scala>
                      .sort($"sum(n)".desc)
 ```
 
-Output to the console and start streaming data (using the `tail` clickstream command descibed above) :
+Output to the console and start streaming data (using the `tail` clickstream command descibed above):
 
 ```scala
 val query = messages.writeStream
