@@ -4,13 +4,13 @@ Clickstream analysis is the process of collecting, analyzing, and reporting abou
 
 Some popular use cases for clickstream analysis include:
 
-* <b>A/B Testing.</b> Statistically study how users of a web site are affected by changes from version A to B. [Read more](https://en.wikipedia.org/wiki/A/B_testing)
+* **A/B Testing:** Statistically study how users of a web site are affected by changes from version A to B. [Read more](https://en.wikipedia.org/wiki/A/B_testing)
 
-* <b>Recommendation generation on shopping portals.</b> Click patterns of users of a shopping portal website, indicate how a user was influenced into buying something. This information can be used as a recommendation generation for future such patterns of clicks.
+* **Recommendation generation on shopping portals:** Click patterns of users of a shopping portal website, indicate how a user was influenced into buying something. This information can be used as a recommendation generation for future such patterns of clicks.
 
-* <b>Targeted advertisement.</b> Similar to <i>recommendation generation</i>, but tracking user clicks "across websites" and using that information to target advertisement in real-time.
+* **Targeted advertisement:** Similar to *recommendation generation*, but tracking user clicks "across websites" and using that information to target advertisement in real-time.
 
-* <b>Trending topics.</b> Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets the highest number of user clicks.
+* **Trending topics:** Clickstream can be used to study or report trending topics in real time. For a particular time quantum, display top items that gets the highest number of user clicks.
 
 In this Code Pattern, we will demonstrate how to detect real-time trending topics on the [Wikipedia](https://www.wikipedia.org/) web site. To perform this task, Apache Kafka will be used as a message queue, and the Apache Spark structured streaming engine will be used to perform the analytics. This combination is well known for its usability, high throughput and low-latency characteristics.
 
@@ -215,7 +215,7 @@ Create the Notebook:
 * Click on your project to open up the project details panel.
 * Click ``add notebooks``.
 * Click the tab for ``From URL`` and enter a ``Name`` and optional ``Description``.
-* For ``Notebook URL`` enter: https://raw.githubusercontent.com/IBM/kafka-streaming/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb
+* For ``Notebook URL`` enter: https://raw.githubusercontent.com/IBM/kafka-streaming-click-analysis/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb
 * For ``Spark Service``, select your Apache Spark service name.
 * Click ``Create Notebook``.
 
