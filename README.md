@@ -187,7 +187,9 @@ Here we assume the higher number of clicks indicates a "Hot topic" or "Trending 
 
 ### 1. Sign up for the Watson Studio
 
-Sign up for IBM's [Watson Studio](http://datascience.ibm.com/). By signing up for the Watson Studio, two services: ``Apache Spark`` and ``Object Storage`` will be created in your IBM Cloud account. If these services do not exist, or if you are already using them for some other application, you will need to create new instances.
+Sign up for IBM's [Watson Studio](https://dataplatform.ibm.com). By creating a project in Watson Studio a free tier ``Object Storage`` service will be created in your IBM Cloud account. Take note of your service names as you will need to select them in the following steps.
+
+> Note: When creating your Object Storage service, select the ``Free`` storage type in order to avoid having to pay an upgrade fee.
 
 To create these services:
 * Login to your [IBM Cloud](http://bluemix.net) account.
@@ -212,12 +214,16 @@ First you must create a new Project:
 ![](doc/source/images/create-project.png)
 
 Create the Notebook:
-* Click on your project to open up the project details panel.
-* Click ``add notebooks``.
-* Click the tab for ``From URL`` and enter a ``Name`` and optional ``Description``.
-* For ``Notebook URL`` enter: https://raw.githubusercontent.com/IBM/kafka-streaming-click-analysis/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb
+* In [Watson Studio](https://dataplatform.ibm.com), click on `Create notebook` to create a notebook.
+* Create a project if necessary, provisioning an object storage service if required.
+* In the `Assets` tab, select the `Create notebook` option.
+* Select the `From URL` tab.
+* Enter a name for the notebook.
+* Optionally, enter a description for the notebook.
+* Enter this Notebook URL: https://raw.githubusercontent.com/IBM/kafka-streaming-click-analysis/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb/pixiedust_facebook_analysis.ipynb
+* Select the free Anaconda runtime.
 * For ``Spark Service``, select your Apache Spark service name.
-* Click ``Create Notebook``.
+* Click the `Create` button.
 
 ![](doc/source/images/create-notebook.png)
 
