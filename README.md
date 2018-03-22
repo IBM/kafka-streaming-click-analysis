@@ -1,5 +1,7 @@
 # Clickstream Analysis using Apache Spark and Apache Kafka
 
+> Data Science Experience is now Watson Studio. Although some images in this code pattern may show the service as Data Science Experience, the steps and processes will still work.
+
 Clickstream analysis is the process of collecting, analyzing, and reporting about which web pages a user visits, and can offer useful information about the usage characteristics of a website.
 
 Some popular use cases for clickstream analysis include:
@@ -17,7 +19,7 @@ In this Code Pattern, we will demonstrate how to detect real-time trending topic
 When you complete this Code Pattern, you will understand how to:
 
 * Use [Jupyter Notebooks](http://jupyter.org/) to load, visualize, and analyze data
-* Run streaming analytics interactively using Notebooks in [IBM Watson Studio](https://datascience.ibm.com/)
+* Run streaming analytics interactively using Notebooks in [IBM Watson Studio](https://dataplatform.ibm.com/)
 * Interactively develop clickstream analysis using Apache Spark Structured Streaming on a Spark Shell
 * Build a low-latency processing stream utilizing Apache Kafka.
 
@@ -32,7 +34,7 @@ When you complete this Code Pattern, you will understand how to:
 
 ## Included components
 
-* [IBM Watson Studio](https://www.ibm.com/bs-en/marketplace/data-science-experience): Analyze data using RStudio, Jupyter, and Python in a configured, collaborative environment that includes IBM value-adds, such as managed Spark.
+* [IBM Watson Studio](https://www.ibm.com/cloud/watson-studio): Analyze data using RStudio, Jupyter, and Python in a configured, collaborative environment that includes IBM value-adds, such as managed Spark.
 * [Apache Spark](http://spark.apache.org/): An open-source distributed computing framework that allows you to perform large-scale data processing.
 * [Apache Kafka](http://kafka.apache.org): Kafka is used for building real-time data pipelines and streaming apps. It is designed to be horizontally scalable, fault-tolerant and fast.
 * [Jupyter Notebook](http://jupyter.org/): An open source web application that allows you to create and share documents that contain live code, equations, visualizations, and explanatory text.
@@ -46,7 +48,7 @@ When you complete this Code Pattern, you will understand how to:
 
 There are two modes of exercising this Code Pattern:
 * [Run locally using the Spark shell](#run-locally).
-* [Run using a Jupyter notebook in the IBM Watson Studio](#run-using-a-jupyter-notebook-in-the-ibm-data-science-experience). *Note: Running in this mode requires a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service, which charges a nominal fee.*
+* [Run using a Jupyter notebook in the IBM Watson Studio](#run-using-a-jupyter-notebook-in-the-ibm-watson-studio). *Note: Running in this mode requires a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service, which charges a nominal fee.*
 
 ## Run locally
 1. [Install Spark and Kafka](#1-install-spark-and-kafka)
@@ -177,7 +179,7 @@ Here we assume the higher number of clicks indicates a "Hot topic" or "Trending 
 
 ## Run using a Jupyter notebook in the IBM Watson Studio
 
-1. [Sign up for the Watson Studio](#1-sign-up-for-the-data-science-experience)
+1. [Sign up for the Watson Studio](#1-sign-up-for-watson-studio)
 2. [Create the notebook](#2-create-the-notebook)
 3. [Run the notebook](#3-run-the-notebook)
 4. [Upload data](#4-upload-data)
@@ -185,7 +187,7 @@ Here we assume the higher number of clicks indicates a "Hot topic" or "Trending 
 
 *Note: Running this part of the Code Pattern requires a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service, which charges a nominal fee.*
 
-### 1. Sign up for the Watson Studio
+### 1. Sign up for Watson Studio
 
 Sign up for IBM's [Watson Studio](https://dataplatform.ibm.com). By creating a project in Watson Studio a free tier ``Object Storage`` service will be created in your IBM Cloud account. Take note of your service names as you will need to select them in the following steps.
 
@@ -201,17 +203,6 @@ To create these services:
 Take note of your service names as you will need to select them in the following steps.
 
 ### 2. Create the notebook
-
-First you must create a new Project:
-* From the [IBM Watson Studio page](https://apsportal.ibm.com/analytics) either click the ``Get Started`` tab at the top or scroll down to ``Recently updated projects``.
-* Click on ``New project`` under ``Recently updated projects``.
-* Enter a ``Name`` and optional ``Description``.
-* For ``Spark Service``, select your Apache Spark service name.
-* For ``Storage Type``, select the ``Object Storage (Swift API)`` option.
-* For ``Target Object Storage Instance``, select your Object Storage service name.
-* Click ``Create``.
-
-![](doc/source/images/create-project.png)
 
 Create the Notebook:
 * In [Watson Studio](https://dataplatform.ibm.com), click on `Create notebook` to create a notebook.
@@ -314,7 +305,7 @@ options to specify exactly what you want shared from your notebook:
 
 * **Data Analytics Code Patterns**: Enjoyed this Code Pattern? Check out our other [Data Analytics Code Patterns](https://developer.ibm.com/code/technologies/data-science/)
 * **AI and Data Code Pattern Playlist**: Bookmark our [playlist](https://www.youtube.com/playlist?list=PLzUbsvIyrNfknNewObx5N7uGZ5FKH0Fde) with all of our Code Pattern videos
-* **Watson Studio**: Master the art of data science with IBM's [Watson Studio](https://datascience.ibm.com/)
+* **Watson Studio**: Master the art of data science with IBM's [Watson Studio](https://dataplatform.ibm.com/)
 * **Spark on IBM Cloud**: Need a Spark cluster? Create up to 30 Spark executors on IBM Cloud with our [Spark service](https://console.bluemix.net/catalog/services/apache-spark)
 
 # License
