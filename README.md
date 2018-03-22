@@ -213,7 +213,6 @@ Create the Notebook:
 * Optionally, enter a description for the notebook.
 * Enter this Notebook URL: https://raw.githubusercontent.com/IBM/kafka-streaming-click-analysis/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb/pixiedust_facebook_analysis.ipynb
 * Select the free Anaconda runtime.
-* For ``Spark Service``, select your Apache Spark service name.
 * Click the `Create` button.
 
 ![](doc/source/images/create-notebook.png)
