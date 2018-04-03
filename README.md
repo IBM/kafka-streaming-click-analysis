@@ -1,5 +1,7 @@
 # Clickstream Analysis using Apache Spark and Apache Kafka
 
+*Read this in other languages: [中国](README-cn.md).*
+
 > Data Science Experience is now Watson Studio. Although some images in this code pattern may show the service as Data Science Experience, the steps and processes will still work.
 
 Clickstream analysis is the process of collecting, analyzing, and reporting about which web pages a user visits, and can offer useful information about the usage characteristics of a website.
