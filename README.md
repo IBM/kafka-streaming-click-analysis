@@ -1,6 +1,6 @@
-*Read this in other languages: [中国](README-cn.md).*
-
 # Clickstream Analysis using Apache Spark and Apache Kafka
+
+*Read this in other languages: [中国](README-cn.md).*
 
 > Data Science Experience is now Watson Studio. Although some images in this code pattern may show the service as Data Science Experience, the steps and processes will still work.
 
