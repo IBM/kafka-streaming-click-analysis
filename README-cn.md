@@ -1,20 +1,20 @@
 *阅读本文的其他语言版本：[English](README.md)。*
 
-# 使用 Apache Spark 和 Apache Kafka 的单击流分析
+# 使用 Apache Spark 和 Apache Kafka 的点击流分析
 
 > Data Science Experience 现在更名为 Watson Studio。尽管本 Code Pattern 显示的一些图片还是 Data Science Experience，但步骤和过程依旧是有效的。
 
-单击流分析是收集、分析和报告用户访问了哪些网页的过程，可以提供有关网站使用特征的有用信息。
+点击流分析是收集、分析和报告用户访问了哪些网页的过程，可以提供有关网站使用特征的有用信息。
 
-单击流分析的一些流行用例包括：
+点击流分析的一些流行用例包括：
 
 * **A/B 测试：** 统计分析从版本 A 更改到 B 对网站的用户有何影响。[了解更多](https://en.wikipedia.org/wiki/A/B_testing)
 
-* **在购物门户网站上生成推荐：** 购物门户网站用户的单击模式表明了用户是受何种影响才购买某款商品的。此信息可用来为未来的类似单击模式生成推荐。
+* **在购物门户网站上生成推荐：** 购物门户网站用户的点击模式表明了用户是受何种影响才购买某款商品的。此信息可用来为未来的类似点击模式生成推荐。
 
-* **针对性广告：** 类似于*推荐生成*，但跟踪用户的“跨网站”单击，并利用该信息实时投放广告。
+* **针对性广告：** 类似于*推荐生成*，但跟踪用户的“跨网站”点击，并利用该信息实时投放广告。
 
-* **热门主题：** 可使用单击流来实时分析或报告热门主题。对于某个特定的时间段，显示用户单击次数最多的热门项目。
+* **热门主题：** 可使用点击流来实时分析或报告热门主题。对于某个特定的时间段，显示用户点击次数最多的热门项目。
 
 在本 Code Pattern 中，我们将演示如何检测 [Wikipedia](https://www.wikipedia.org/) 网站上的实时热门主题。要执行此任务，将会使用 Apache Kafka 作为消息队列，使用 Apache Spark 结构化流引擎来执行分析。这种组合因其实用性、高吞吐量和低延迟特征而闻名。
 
@@ -22,14 +22,14 @@
 
 * 使用 [Jupyter Notebook](http://jupyter.org/) 加载、可视化和分析数据。
 * 在 [IBM Watson Studio](https://dataplatform.ibm.com/) 中使用 Notebook 以交互方式运行流分析
-* 在 Spark Shell 上使用 Apache Spark Structured Streaming 以交互方式开发单击流分析
+* 在 Spark Shell 上使用 Apache Spark Structured Streaming 以交互方式开发点击流分析
 * 利用 Apache Kafka 构建一个低延迟处理流。
 
 ![](doc/source/images/architecture.png)
 
 ## 操作流程
 
-1.用户连接 Apache Kafka 服务并设置一个单击流的运行实例。
+1.用户连接 Apache Kafka 服务并设置一个点击流的运行实例。
 
 2.在与基础 Apache Spark 服务交互的 IBM Data Science Experience 中运行 Jupyter Notebook。此操作也可以通过运行 Spark Shell 来在本地完成。
 
@@ -58,7 +58,7 @@
 ## 在本地运行
 1.[安装 Spark 和 Kafka](#1-install-spark-and-kafka)
 
-2.[设置并运行一个模拟的单击流](#2-setup-and-run-a-simulated-clickstream)
+2.[设置并运行一个模拟的点击流](#2-setup-and-run-a-simulated-clickstream)
 
 3.[运行脚本](#3-run-the-script)
 
@@ -66,11 +66,11 @@
 
 从 [Apache Kafka](https://kafka.apache.org/downloads)（推荐版本为 0.10.2.1）和 [Apache Spark 2.2.0](https://spark.apache.org/releases/spark-release-2-2-0.html) 下载并提取一个二进制发行版到您系统上，以便进行安装。
 
-### 2.设置并运行一个模拟的单击流
+### 2.设置并运行一个模拟的点击流
 
-*备注：如果您已有一个单击流可供处理，可以跳过这些步骤。如果是这样，需要在执行下一步之前创建数据并将它们传输到名为“clicks”的主题。*
+*备注：如果您已有一个点击流可供处理，可以跳过这些步骤。如果是这样，需要在执行下一步之前创建数据并将它们传输到名为“clicks”的主题。*
 
-按照以下步骤设置一个使用来自外部发布者的数据的模拟单击流：
+按照以下步骤设置一个使用来自外部发布者的数据的模拟点击流：
 
 1.从[这里](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data") 下载并提取 `Wikipedia Clickstream` 数据。因为此数据的模式在不断演变，所以您可以选择用于测试本 Code Pattern 的数据集 - `2017_01_en_clickstream.tsv.gz`。
 
@@ -85,7 +85,7 @@ $ cd kafka_2.10-0.10.2.1
 $ tail -200 data/2017_01_en_clickstream.tsv | bin/kafka-console-producer.sh --broker-list ip:port --topic clicks --producer.config=config/producer.properties
 ```
 
-*提示：Unix head 或 tail 实用程序可用于方便地指定要发送的用来模拟单击流的行范围。*
+*提示：Unix head 或 tail 实用程序可用于方便地指定要发送的用来模拟点击流的行范围。*
 
 ### 3.运行脚本
 
@@ -96,7 +96,7 @@ $ cd $SPARK_DIR
 $ bin/spark-shell --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.2.0
 ```
 
-在 spark shell 提示符下，指定传入的 wikipedia 单击流和解析方法的模式：
+在 spark shell 提示符下，指定传入的 wikipedia 点击流和解析方法的模式：
 
 *提示：为了方便地将命令复制并粘贴到 spark shell 中，spark-shell 支持一种 `:paste` 方式*
 
@@ -137,7 +137,7 @@ scala>
                      .sort($"sum(n)".desc)
 ```
 
-输出到控制台并开始传输数据（使用上面介绍的 `tail` 单击流命令）：
+输出到控制台并开始传输数据（使用上面介绍的 `tail` 点击流命令）：
 
 ```scala
 val query = messages.writeStream
@@ -182,7 +182,7 @@ only showing top 20 rows
 
 结果表显示了点击最多的 Wikipedia 页面。只要从 Kafka 传来更多数据，此表就会自动更新。除非另行指定，否则结构化流会在收到任何数据时立即执行处理。
 
-在这里，我们假设较多的单击次数表明一个“热门主题”或“流行主题”。您可以自由发表关于如何执行相关改进的任何想法，或者关于可以执行的其他任何类型单击流分析的想法。
+在这里，我们假设较多的点击次数表明一个“热门主题”或“流行主题”。您可以自由发表关于如何执行相关改进的任何想法，或者关于可以执行的其他任何类型点击流分析的想法。
 
 ## 在 IBM Data Science Experience 中使用 Jupyter Notebook 运行
 
@@ -228,13 +228,13 @@ only showing top 20 rows
 
 运行 Notebook 之前，需要设置一个 [Message Hub](https://developer.ibm.com/messaging/message-hub/) 服务。
 
-* 要创建一个 Message Hub 服务，请转到 IBM Watson Studio 仪表板上的 `Data Services-> Services` 选项卡。单击 `Create`，然后选择 Message Hub 服务。选择 `Standard` 计划，然后按照屏幕上的操作说明创建该服务。创建该服务后，选择 Message Hub 服务实例来调出详细信息面板，您可以在这里创建一个主题。在创建表单中，将该主题命名为 `clicks`，将其他字段保留默认值。
+* 要创建一个 Message Hub 服务，请转到 IBM Watson Studio 仪表板上的 `Data Services-> Services` 选项卡。点击 `Create`，然后选择 Message Hub 服务。选择 `Standard` 计划，然后按照屏幕上的操作说明创建该服务。创建该服务后，选择 Message Hub 服务实例来调出详细信息面板，您可以在这里创建一个主题。在创建表单中，将该主题命名为 `clicks`，将其他字段保留默认值。
 
-* 接下来创建与此服务的连接，以便可以将它作为资产添加到项目中。转到 DSX 仪表板上的 `Data Services-> Connections` 选项卡。单击 `Create New` 创建一个连接。提供一个唯一名称，然后选择刚创建的 Message Hub 实例作为 `Service Instance` 连接。
+* 接下来创建与此服务的连接，以便可以将它作为资产添加到项目中。转到 DSX 仪表板上的 `Data Services-> Connections` 选项卡。点击 `Create New` 创建一个连接。提供一个唯一名称，然后选择刚创建的 Message Hub 实例作为 `Service Instance` 连接。
 
-* 接下来将该连接作为资产附加到项目中。转到项目仪表板上的 `Assets` 选项卡。单击 `Add to project` 并选择 `Data Asset` 选项卡。然后单击 `Connections` 选项卡并选择您刚创建的连接。单击“Apply”添加该连接。
+* 接下来将该连接作为资产附加到项目中。转到项目仪表板上的 `Assets` 选项卡。点击 `Add to project` 并选择 `Data Asset` 选项卡。然后点击 `Connections` 选项卡并选择您刚创建的连接。点击“Apply”添加该连接。
 
-该 Notebook 现在可以运行了。Notebook 中的第一步是插入刚创建的 Message Hub 连接的凭证。为此，在编辑模式下启动该 Notebook，选择代码单元“[1]”。然后单击位于 Notebook 右上角的 `1001` 按钮。选择 `Connections` 选项卡来查看您的 Message Hub 连接器。单击 `Insert to code` 按钮，将 Message Hub 凭证数据下载到代码单元 `[1]` 中。
+该 Notebook 现在可以运行了。Notebook 中的第一步是插入刚创建的 Message Hub 连接的凭证。为此，在编辑模式下启动该 Notebook，选择代码单元“[1]”。然后点击位于 Notebook 右上角的 `1001` 按钮。选择 `Connections` 选项卡来查看您的 Message Hub 连接器。点击 `Insert to code` 按钮，将 Message Hub 凭证数据下载到代码单元 `[1]` 中。
 
 > 备注：确保将 credentials 对象重命名为 `credentials_1`。
 
@@ -265,7 +265,7 @@ only showing top 20 rows
 
 ### 4.上传数据
 
-要将数据以服务形式上传到 [Message Hub](https://developer.ibm.com/messaging/message-hub/) 或 Apache Kafka，可以使用 kafka 命令行实用程序。使用上面的[设置和运行一个模拟的单击流](#2-setup-and-run-a-simulated-clickstream) 部分提供的详细操作说明，您需要：
+要将数据以服务形式上传到 [Message Hub](https://developer.ibm.com/messaging/message-hub/) 或 Apache Kafka，可以使用 kafka 命令行实用程序。使用上面的[设置和运行一个模拟的点击流](#2-setup-and-run-a-simulated-clickstream) 部分提供的详细操作说明，您需要：
 
 1) 下载 Wikipedia 数据。
 2) 下载 Kafka 发行版二进制文件。
