@@ -191,16 +191,16 @@ Here we assume the higher number of clicks indicates a "Hot topic" or "Trending 
 
 ### 1. Sign up for Watson Studio
 
-Sign up for IBM's [Watson Studio](https://dataplatform.ibm.com). By creating a project in Watson Studio a free tier ``Object Storage`` service will be created in your IBM Cloud account. Take note of your service names as you will need to select them in the following steps.
+Sign up for IBM's [Watson Studio](https://dataplatform.ibm.com). Create a project in Watson Studio, and add a free tier ``Object Storage`` service in your IBM Cloud account. 
 
 > Note: When creating your Object Storage service, select the ``Free`` storage type in order to avoid having to pay an upgrade fee.
+
+Next, associate spark service as described [here](https://developer.ibm.com/code/howtos/create-a-spark-service-for-ibm-watson-studio).
 
 To create these services:
 * Login to your [IBM Cloud](http://bluemix.net) account.
 * Create your Spark service by selecting the service type [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark). If not already used, name your service ``Apache Spark``.
 * Create your Object Storage service by selecting the service type [Cloud Object Storage](https://console.bluemix.net/catalog/infrastructure/object-storage-group). If not already used, name your service ``Watson Studio-ObjectStorage``.
-
-> Note: When creating your Object Storage service, select the ``Swift`` storage type in order to avoid having to pay an upgrade fee.
 
 Take note of your service names as you will need to select them in the following steps.
 
