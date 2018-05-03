@@ -181,45 +181,68 @@ Here we assume the higher number of clicks indicates a "Hot topic" or "Trending 
 
 ## Run using a Jupyter notebook in the IBM Watson Studio
 
-1. [Sign up for the Watson Studio](#1-sign-up-for-watson-studio)
-2. [Create the notebook](#2-create-the-notebook)
-3. [Run the notebook](#3-run-the-notebook)
-4. [Upload data](#4-upload-data)
-5. [Save and Share](#5-save-and-share)
+1. [Create a new Watson Studio project](#1-create-a-new-watson-studio-project)
+2. [Associate a Spark service](#2-associate-a-spark-service)
+3. [Create the notebook](#3-create-the-notebook)
+4. [Run the notebook](#4-run-the-notebook)
+5. [Upload data](#5-upload-data)
+6. [Save and Share](#6-save-and-share)
 
 *Note: Running this part of the Code Pattern requires a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service, which charges a nominal fee.*
 
-### 1. Sign up for Watson Studio
+### 1. Create a new Watson Studio project
 
-Sign up for IBM's [Watson Studio](https://dataplatform.ibm.com). Create a project in Watson Studio, and add a free tier ``Object Storage`` service in your IBM Cloud account. 
+* Log in or sign up for IBM's [Watson Studio](https://dataplatform.ibm.com).
 
-> Note: When creating your Object Storage service, select the ``Free`` storage type in order to avoid having to pay an upgrade fee.
+* Select the `New Project` option from the Watson Studio landing page and choose the `Jupyter Notebooks` option.
 
-To create these services:
-* Login to your [IBM Cloud](http://bluemix.net) account.
-* Create your Spark service by selecting the service type [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark). If not already used, name your service ``Apache Spark``.
-* Create your Object Storage service by selecting the service type [Cloud Object Storage](https://console.bluemix.net/catalog/infrastructure/object-storage-group). If not already used, name your service ``Watson Studio-ObjectStorage``.
+![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/project_choices.png)
 
-Next, associate spark service as described [here](https://developer.ibm.com/code/howtos/create-a-spark-service-for-ibm-watson-studio).
+* To create a project in Watson Studio, give the project a name and either create a new `Cloud Object Storage` service or select an existing one from your IBM Cloud account.
 
-Take note of your service names as you will need to select them in the following steps.
+![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/new_project.png)
 
-### 2. Create the notebook
+* Upon a successful project creation, you are taken to a dashboard view of your project. Take note of the `Assets` and `Settings` tabs, we'll be using them to associate our project with any external assets (datasets and notebooks) and any IBM cloud services.
 
-Create the Notebook:
-* In [Watson Studio](https://dataplatform.ibm.com), click on `Create notebook` to create a notebook.
-* Create a project if necessary, provisioning an object storage service if required.
-* In the `Assets` tab, select the `Create notebook` option.
-* Select the `From URL` tab.
-* Enter a name for the notebook.
-* Optionally, enter a description for the notebook.
-* Enter this Notebook URL: https://raw.githubusercontent.com/IBM/kafka-streaming-click-analysis/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb/pixiedust_facebook_analysis.ipynb
-* Select the free Anaconda runtime.
+![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/project_dashboard.png)
+
+### 2. Associate a Spark service
+
+* From the project dashboard view, click the `Settings` tab, click the `+ Add service` button and choose the `Spark` option from the list.
+
+![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/add_service.png)
+
+* Create your Spark service by selecting an existing Spark service or creating a new one.
+
+![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/add_existing_spark_service.png)
+
+It should now appear in your _Services_ list.
+
+![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/spark_in_service_list.png)
+
+### 3. Create the notebook
+
+* From the project dashboard view, click the `Assets` tab, click the `+ New notebook` button.
+
+![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/new_notebook.png)
+
+* Give your notebook a name and select your desired runtime, in this case we'll be using the associated Spark runtime.
+
+![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/notebook_spark.png)
+
+* Now select the `From URL` tab to specify the URL to the notebook in this repository.
+
+![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/notebook_with_url_spark.png)
+
+* Enter this URL:
+
+```
+https://raw.githubusercontent.com/IBM/kafka-streaming-click-analysis/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb/pixiedust_facebook_analysis.ipynb
+```
+
 * Click the `Create` button.
 
-![](doc/source/images/create-notebook.png)
-
-### 3. Run the notebook
+### 4. Run the notebook
 
 Before running the notebook, you will need to setup a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service.
 
@@ -258,7 +281,7 @@ There are several ways to execute the code cells in your notebook:
     time, or repeatedly at your specified interval.
 
 
-### 4. Upload data
+### 5. Upload data
 
 For uploading data to the [Message Hub](https://developer.ibm.com/messaging/message-hub/) or Apache Kafka as a service, use the kafka command line utility. Using the detailed instructions found in the [Setup and run a simulated clickstream](#2-setup-and-run-a-simulated-clickstream) section above, you need to:
 
@@ -276,7 +299,7 @@ $ tail -200 data/2017_01_en_clickstream.tsv | bin/kafka-console-producer.sh --br
 
 ```
 
-### 5. Save and Share
+### 6. Save and Share
 
 #### How to save your work:
 
