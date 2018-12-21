@@ -43,7 +43,7 @@
 * [Apache Spark](http://spark.apache.org/)：一个允许执行大规模数据处理的开源、分布式计算框架。
 * [Apache Kafka](http://kafka.apache.org)：Kafka 用于构建实时数据管道和流应用程序。它的设计是可水平扩展、容错和快速的。
 * [Jupyter Notebook](http://jupyter.org/)：一种开源 Web 应用程序，允许创建并共享包含实时代码、等式、可视化和解释文本的文档。
-* [Message Hub](https://console.ng.bluemix.net/catalog/services/message-hub)：一个可扩展、高吞吐量的消息总线，它使用开放协议将微服务联系在一起。
+* [Message Hub](https://cloud.ibm.com/catalog/services/message-hub)：一个可扩展、高吞吐量的消息总线，它使用开放协议将微服务联系在一起。
 
 # 观看视频
 
@@ -201,9 +201,9 @@ only showing top 20 rows
 > 备注： 创建 Object Storage 服务时，请选择“免费”存储类型，以避免支付升级费用。
 
 要创建这些服务，请执行以下操作：
-* 登录到您的 [IBM Cloud](http://bluemix.net) 帐户。
-* 选择服务类型 [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) 来创建您的 Spark 服务。如果未被使用，则将您的服务命名为 ``Apache Spark``。
-* 选择服务类型 [Cloud Object Storage](https://console.bluemix.net/catalog/infrastructure/object-storage-group) 来创建您的 Object Storage 服务。如果未被使用，则将您的服务命名为 ``Watson Studio-ObjectStorage``。
+* 登录到您的 [IBM Cloud](https://cloud.ibm.com) 帐户。
+* 选择服务类型 [Apache Spark](https://cloud.ibm.com/catalog/services/apache-spark) 来创建您的 Spark 服务。如果未被使用，则将您的服务命名为 ``Apache Spark``。
+* 选择服务类型 [Cloud Object Storage](https://cloud.ibm.com/catalog/infrastructure/object-storage-group) 来创建您的 Object Storage 服务。如果未被使用，则将您的服务命名为 ``Watson Studio-ObjectStorage``。
 
 > 备注：创建您的 Object Storage 服务时，选择 ``Swift`` 存储类型，以避免支付升级费用。
 
@@ -312,7 +312,7 @@ Share 按钮。该操作的最终结果是一个 URL
 * **数据分析 Code Pattern**：喜欢本 Code Pattern 吗？了解我们的其他[数据分析 Code Pattern](https://developer.ibm.com/cn/journey/category/data-science/)
 * **AI 和数据 Code Pattern 播放清单**：收藏包含我们所有 Code Pattern 视频的[播放清单](http://i.youku.com/i/UNTI2NTA2NTAw/videos?spm=a2hzp.8244740.0.0)
 * **Watson Studio**：通过 IBM [Watson Studio](https://dataplatform.ibm.com/) 掌握数据科学艺术
-* **IBM Cloud 上的 Spark**：需要一个 Spark 集群？通过我们的 [Spark 服务](https://console.bluemix.net/catalog/services/apache-spark)，在 IBM Cloud 上创建多达 30 个 Spark 执行程序。
+* **IBM Cloud 上的 Spark**：需要一个 Spark 集群？通过我们的 [Spark 服务](https://cloud.ibm.com/catalog/services/apache-spark)，在 IBM Cloud 上创建多达 30 个 Spark 执行程序。
 
 # 许可
 [Apache 2.0](LICENSE)

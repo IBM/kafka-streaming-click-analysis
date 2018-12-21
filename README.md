@@ -40,7 +40,7 @@ When you complete this Code Pattern, you will understand how to:
 * [Apache Spark](http://spark.apache.org/): An open-source distributed computing framework that allows you to perform large-scale data processing.
 * [Apache Kafka](http://kafka.apache.org): Kafka is used for building real-time data pipelines and streaming apps. It is designed to be horizontally scalable, fault-tolerant and fast.
 * [Jupyter Notebook](http://jupyter.org/): An open source web application that allows you to create and share documents that contain live code, equations, visualizations, and explanatory text.
-* [Message Hub](https://console.ng.bluemix.net/catalog/services/message-hub): A scalable, high-throughput message bus. Wire micro-services together using open protocols.
+* [Message Hub](https://cloud.ibm.com/catalog/services/message-hub): A scalable, high-throughput message bus. Wire micro-services together using open protocols.
 
 # Watch the Video
 
@@ -330,7 +330,7 @@ options to specify exactly what you want shared from your notebook:
 * **Data Analytics Code Patterns**: Enjoyed this Code Pattern? Check out our other [Data Analytics Code Patterns](https://developer.ibm.com/code/technologies/data-science/)
 * **AI and Data Code Pattern Playlist**: Bookmark our [playlist](https://www.youtube.com/playlist?list=PLzUbsvIyrNfknNewObx5N7uGZ5FKH0Fde) with all of our Code Pattern videos
 * **Watson Studio**: Master the art of data science with IBM's [Watson Studio](https://dataplatform.ibm.com/)
-* **Spark on IBM Cloud**: Need a Spark cluster? Create up to 30 Spark executors on IBM Cloud with our [Spark service](https://console.bluemix.net/catalog/services/apache-spark)
+* **Spark on IBM Cloud**: Need a Spark cluster? Create up to 30 Spark executors on IBM Cloud with our [Spark service](https://cloud.ibm.com/catalog/services/apache-spark)
 
 # License
 
