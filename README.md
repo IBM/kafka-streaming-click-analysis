@@ -20,8 +20,8 @@ In this Code Pattern, we will demonstrate how to detect real-time trending topic
 
 When you complete this Code Pattern, you will understand how to:
 
-* Use [Jupyter Notebooks](http://jupyter.org/) to load, visualize, and analyze data
-* Run streaming analytics interactively using Notebooks in [IBM Watson Studio](https://dataplatform.ibm.com/)
+* Use [Jupyter Notebooks](https://jupyter.org/) to load, visualize, and analyze data
+* Run streaming analytics interactively using Notebooks in [IBM Watson Studio](https://dataplatform.cloud.ibm.com/)
 * Interactively develop clickstream analysis using Apache Spark Structured Streaming on a Spark Shell
 * Build a low-latency processing stream utilizing Apache Kafka.
 
@@ -37,20 +37,20 @@ When you complete this Code Pattern, you will understand how to:
 ## Included components
 
 * [IBM Watson Studio](https://www.ibm.com/cloud/watson-studio): Analyze data using RStudio, Jupyter, and Python in a configured, collaborative environment that includes IBM value-adds, such as managed Spark.
-* [Apache Spark](http://spark.apache.org/): An open-source distributed computing framework that allows you to perform large-scale data processing.
-* [Apache Kafka](http://kafka.apache.org): Kafka is used for building real-time data pipelines and streaming apps. It is designed to be horizontally scalable, fault-tolerant and fast.
-* [Jupyter Notebook](http://jupyter.org/): An open source web application that allows you to create and share documents that contain live code, equations, visualizations, and explanatory text.
-* [Message Hub](https://console.ng.bluemix.net/catalog/services/message-hub): A scalable, high-throughput message bus. Wire micro-services together using open protocols.
+* [Apache Spark](https://spark.apache.org/): An open-source distributed computing framework that allows you to perform large-scale data processing.
+* [Apache Kafka](https://kafka.apache.org): Kafka is used for building real-time data pipelines and streaming apps. It is designed to be horizontally scalable, fault-tolerant and fast.
+* [Jupyter Notebook](https://jupyter.org/): An open source web application that allows you to create and share documents that contain live code, equations, visualizations, and explanatory text.
+* [Event Streams](https://cloud.ibm.com/catalog/services/event-streams): A scalable, high-throughput message bus. Wire micro-services together using open protocols.
 
 # Watch the Video
 
-[![](http://img.youtube.com/vi/-3QY1gT5oao/0.jpg)](https://www.youtube.com/watch?v=-3QY1gT5oao)
+[![](https://img.youtube.com/vi/-3QY1gT5oao/0.jpg)](https://www.youtube.com/watch?v=-3QY1gT5oao)
 
 # Steps
 
 There are two modes of exercising this Code Pattern:
 * [Run locally using the Spark shell](#run-locally).
-* [Run using a Jupyter notebook in the IBM Watson Studio](#run-using-a-jupyter-notebook-in-the-ibm-watson-studio). *Note: Running in this mode requires a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service, which charges a nominal fee.*
+* [Run using a Jupyter notebook in the IBM Watson Studio](#run-using-a-jupyter-notebook-in-the-ibm-watson-studio). *Note: Running in this mode requires a [Event Streams](https://www.ibm.com/cloud/message-hub) service, which charges a nominal fee.*
 
 ## Run locally
 1. [Install Spark and Kafka](#1-install-spark-and-kafka)
@@ -69,7 +69,7 @@ Use the following steps to setup a simulation clickstream that uses data from an
 
 1. Download and extract the `Wikipedia Clickstream` data from [here](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data"). Since the schema for this data is ever evolving, you may select the data set that was used to test this Code Pattern -  `2017_01_en_clickstream.tsv.gz`.
 
-2. Create and run a local Kafka service instance by following the instructions listed [here](http://kafka.apache.org/quickstart). Be sure to create a topic named `clicks`.
+2. Create and run a local Kafka service instance by following the instructions listed [here](https://kafka.apache.org/quickstart). Be sure to create a topic named `clicks`.
 
 3. The Kafka distribution comes with a handy command line utility for uploading data to the Kafka service. To process the simulated Wikipedia data, run the following commands:
 
@@ -188,11 +188,11 @@ Here we assume the higher number of clicks indicates a "Hot topic" or "Trending 
 5. [Upload data](#5-upload-data)
 6. [Save and Share](#6-save-and-share)
 
-*Note: Running this part of the Code Pattern requires a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service, which charges a nominal fee.*
+*Note: Running this part of the Code Pattern requires a [Event Streams](https://www.ibm.com/cloud/message-hub) service, which charges a nominal fee.*
 
 ### 1. Create a new Watson Studio project
 
-* Log in or sign up for IBM's [Watson Studio](https://dataplatform.ibm.com).
+* Log in or sign up for IBM's [Watson Studio](https://dataplatform.cloud.ibm.com/).
 
 * Select the `New Project` option from the Watson Studio landing page and choose the `Jupyter Notebooks` option.
 
@@ -237,22 +237,22 @@ It should now appear in your _Services_ list.
 * Enter this URL:
 
 ```
-https://raw.githubusercontent.com/IBM/kafka-streaming-click-analysis/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb/pixiedust_facebook_analysis.ipynb
+https://raw.githubusercontent.com/IBM/kafka-streaming-click-analysis/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb
 ```
 
 * Click the `Create` button.
 
 ### 4. Run the notebook
 
-Before running the notebook, you will need to setup a [Message Hub](https://developer.ibm.com/messaging/message-hub/) service.
+Before running the notebook, you will need to setup a [Event Streams](https://www.ibm.com/cloud/message-hub) service.
 
-* To create a Message Hub service, go to the `Data Services-> Services` tab on the IBM Watson Studio dashboard. Click `Create`, then select the Message Hub service. Select the `Standard` plan then follow the on-screen instructions to create the service. Once created, select the Message Hub service instance to bring up the details panel where you can create a topic. In the create form, name the topic `clicks` and leave the other fields with their default values.
+* To create a Event Streams service, go to the `Data Services-> Services` tab on the IBM Watson Studio dashboard. Click `Create`, then select the Event Streams service. Select the `Standard` plan then follow the on-screen instructions to create the service. Once created, select the Event Streams service instance to bring up the details panel where you can create a topic. In the create form, name the topic `clicks` and leave the other fields with their default values.
 
-* Next create a connection to this service so that it can be added as an asset to the project. Go to the `Data Services-> Connections` tab on the Watson Studio dashboard. Click `Create New` to create a connection. Provide a unique name and then select the just created Message Hub instance as the `Service Instance` connection.
+* Next create a connection to this service so that it can be added as an asset to the project. Go to the `Data Services-> Connections` tab on the Watson Studio dashboard. Click `Create New` to create a connection. Provide a unique name and then select the just created Event Streams instance as the `Service Instance` connection.
 
 * Next attach the connection as an asset to the project. Go to the `Assets` tab on your project dashboard. Click on `Add to project` and select the `Data Asset` option. Then click on the `Connections` tab and select your just created connection. Click 'Apply' to add the connection.
 
-The notebook is now ready to be run. The first step in the notebook is to insert credentials for the Message Hub connection you just created. To do this, start the notebook in edit mode and select code cell '[1]'. Then click on the `1001` button located in the top right corner of the notebook. Select the `Connections` tab to see your Message Hub connector. Click the `Insert to code` button to download the Message Hub credentials data into code cell `[1]`.
+The notebook is now ready to be run. The first step in the notebook is to insert credentials for the Event Streams connection you just created. To do this, start the notebook in edit mode and select code cell '[1]'. Then click on the `1001` button located in the top right corner of the notebook. Select the `Connections` tab to see your Event Streams connector. Click the `Insert to code` button to download the Event Streams credentials data into code cell `[1]`.
 
 > Note: Make sure you rename the credentials object to `credentials_1`.
 
@@ -283,7 +283,7 @@ There are several ways to execute the code cells in your notebook:
 
 ### 5. Upload data
 
-For uploading data to the [Message Hub](https://developer.ibm.com/messaging/message-hub/) or Apache Kafka as a service, use the kafka command line utility. Using the detailed instructions found in the [Setup and run a simulated clickstream](#2-setup-and-run-a-simulated-clickstream) section above, you need to:
+For uploading data to the [Event Streams](https://www.ibm.com/cloud/message-hub) or Apache Kafka as a service, use the kafka command line utility. Using the detailed instructions found in the [Setup and run a simulated clickstream](#2-setup-and-run-a-simulated-clickstream) section above, you need to:
 
 1) Download the Wikipedia data.
 2) Download the Kafka distribution binary.
@@ -327,13 +327,13 @@ options to specify exactly what you want shared from your notebook:
 
 # Learn more
 
-* **Data Analytics Code Patterns**: Enjoyed this Code Pattern? Check out our other [Data Analytics Code Patterns](https://developer.ibm.com/code/technologies/data-science/)
+* **Data Analytics Code Patterns**: Enjoyed this Code Pattern? Check out our other [Data Analytics Code Patterns](https://developer.ibm.com/technologies/data-science/)
 * **AI and Data Code Pattern Playlist**: Bookmark our [playlist](https://www.youtube.com/playlist?list=PLzUbsvIyrNfknNewObx5N7uGZ5FKH0Fde) with all of our Code Pattern videos
-* **Watson Studio**: Master the art of data science with IBM's [Watson Studio](https://dataplatform.ibm.com/)
-* **Spark on IBM Cloud**: Need a Spark cluster? Create up to 30 Spark executors on IBM Cloud with our [Spark service](https://console.bluemix.net/catalog/services/apache-spark)
+* **Watson Studio**: Master the art of data science with IBM's [Watson Studio](https://dataplatform.cloud.ibm.com/)
+* **Spark on IBM Cloud**: Need a Spark cluster? Create up to 30 Spark executors on IBM Cloud with our [Spark service](https://cloud.ibm.com/catalog/services/apache-spark)
 
 # License
 
-This code pattern is licensed under the Apache Software License, Version 2.  Separate third party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1 (DCO)](https://developercertificate.org/) and the [Apache Software License, Version 2](http://www.apache.org/licenses/LICENSE-2.0.txt).
+This code pattern is licensed under the Apache Software License, Version 2.  Separate third party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1 (DCO)](https://developercertificate.org/) and the [Apache Software License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
-[Apache Software License (ASL) FAQ](http://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN)
+[Apache Software License (ASL) FAQ](https://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN)
