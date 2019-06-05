@@ -182,11 +182,10 @@ Here we assume the higher number of clicks indicates a "Hot topic" or "Trending 
 ## Run using a Jupyter notebook in the IBM Watson Studio
 
 1. [Create a new Watson Studio project](#1-create-a-new-watson-studio-project)
-2. [Associate a Spark service](#2-associate-a-spark-service)
-3. [Create the notebook](#3-create-the-notebook)
-4. [Run the notebook](#4-run-the-notebook)
-5. [Upload data](#5-upload-data)
-6. [Save and Share](#6-save-and-share)
+2. [Create the notebook](#3-create-the-notebook)
+3. [Run the notebook](#4-run-the-notebook)
+4. [Upload data](#5-upload-data)
+5. [Save and Share](#6-save-and-share)
 
 *Note: Running this part of the Code Pattern requires a [Event Streams](https://www.ibm.com/cloud/message-hub) service, which charges a nominal fee.*
 
@@ -206,43 +205,22 @@ Here we assume the higher number of clicks indicates a "Hot topic" or "Trending 
 
 ![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/project_dashboard.png)
 
-### 2. Associate a Spark service
+### 2. Create the notebook
 
-* From the project dashboard view, click the `Settings` tab, click the `+ Add service` button and choose the `Spark` option from the list.
-
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/add_service.png)
-
-* Create your Spark service by selecting an existing Spark service or creating a new one.
-
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/add_existing_spark_service.png)
-
-It should now appear in your _Services_ list.
-
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/spark_in_service_list.png)
-
-### 3. Create the notebook
-
-* From the project dashboard view, click the `Assets` tab, click the `+ New notebook` button.
-
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/new_notebook.png)
-
-* Give your notebook a name and select your desired runtime, in this case we'll be using the associated Spark runtime.
-
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/notebook_spark.png)
-
-* Now select the `From URL` tab to specify the URL to the notebook in this repository.
-
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/notebook_with_url_spark.png)
-
-* Enter this URL:
+* Click on the **Add to project** button.
+* Click on **Notebook**.
+* Click on **From URL**.
+* Fill in a name for the notebook (e.g. "diabetes-prediction").
+* Copy and paste this URL into the notebook URL field:
 
 ```
 https://raw.githubusercontent.com/IBM/kafka-streaming-click-analysis/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb
 ```
 
-* Click the `Create` button.
+* In the **Select runtime** drop-down box, choose the entry that begins with **Default Spark Python**.
+* Click the **Create Notebook** button.
 
-### 4. Run the notebook
+### 3. Run the notebook
 
 Before running the notebook, you will need to setup a [Event Streams](https://www.ibm.com/cloud/message-hub) service.
 
@@ -281,7 +259,7 @@ There are several ways to execute the code cells in your notebook:
     time, or repeatedly at your specified interval.
 
 
-### 5. Upload data
+### 4. Upload data
 
 For uploading data to the [Event Streams](https://www.ibm.com/cloud/message-hub) or Apache Kafka as a service, use the kafka command line utility. Using the detailed instructions found in the [Setup and run a simulated clickstream](#2-setup-and-run-a-simulated-clickstream) section above, you need to:
 
@@ -299,7 +277,7 @@ $ tail -200 data/2017_01_en_clickstream.tsv | bin/kafka-console-producer.sh --br
 
 ```
 
-### 6. Save and Share
+### 5. Save and Share
 
 #### How to save your work:
 
@@ -330,7 +308,6 @@ options to specify exactly what you want shared from your notebook:
 * **Data Analytics Code Patterns**: Enjoyed this Code Pattern? Check out our other [Data Analytics Code Patterns](https://developer.ibm.com/technologies/data-science/)
 * **AI and Data Code Pattern Playlist**: Bookmark our [playlist](https://www.youtube.com/playlist?list=PLzUbsvIyrNfknNewObx5N7uGZ5FKH0Fde) with all of our Code Pattern videos
 * **Watson Studio**: Master the art of data science with IBM's [Watson Studio](https://dataplatform.cloud.ibm.com/)
-* **Spark on IBM Cloud**: Need a Spark cluster? Create up to 30 Spark executors on IBM Cloud with our [Spark service](https://cloud.ibm.com/catalog/services/apache-spark)
 
 # License
 
