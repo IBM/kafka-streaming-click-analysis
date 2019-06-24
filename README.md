@@ -1,9 +1,5 @@
 # Clickstream Analysis using Apache Spark and Apache Kafka
 
-*Read this in other languages: [中国](README-cn.md).*
-
-> Data Science Experience is now Watson Studio. Although some images in this code pattern may show the service as Data Science Experience, the steps and processes will still work.
-
 Clickstream analysis is the process of collecting, analyzing, and reporting about which web pages a user visits, and can offer useful information about the usage characteristics of a website.
 
 Some popular use cases for clickstream analysis include:
@@ -25,14 +21,14 @@ When you complete this Code Pattern, you will understand how to:
 * Interactively develop clickstream analysis using Apache Spark Structured Streaming on a Spark Shell
 * Build a low-latency processing stream utilizing Apache Kafka.
 
-![](doc/source/images/architecture.png)
-
 ## Flow
+
+![architecture](doc/source/images/architecture.png)
 
 1. User connects with Apache Kafka service and sets up a running instance of a clickstream.
 2. Run a Jupyter Notebook in IBM's Watson Studio that interacts with the underlying Apache Spark service. Alternatively, this can be done locally by running the Spark Shell.
 3. The Spark service reads and processes data from the Kafka service.
-4. Processed Kafka data is relayed back to the user via the Jupyter Notebook (or console sink if running locally). 
+4. Processed Kafka data is relayed back to the user via the Jupyter Notebook (or console sink if running locally).
 
 ## Included components
 
@@ -42,17 +38,21 @@ When you complete this Code Pattern, you will understand how to:
 * [Jupyter Notebook](https://jupyter.org/): An open source web application that allows you to create and share documents that contain live code, equations, visualizations, and explanatory text.
 * [Event Streams](https://cloud.ibm.com/catalog/services/event-streams): A scalable, high-throughput message bus. Wire micro-services together using open protocols.
 
-# Watch the Video
+## Watch the Video
 
-[![](https://img.youtube.com/vi/-3QY1gT5oao/0.jpg)](https://www.youtube.com/watch?v=-3QY1gT5oao)
+[![video](https://img.youtube.com/vi/-3QY1gT5oao/0.jpg)](https://www.youtube.com/watch?v=-3QY1gT5oao)
 
-# Steps
+## Steps
 
 There are two modes of exercising this Code Pattern:
-* [Run locally using the Spark shell](#run-locally).
-* [Run using a Jupyter notebook in the IBM Watson Studio](#run-using-a-jupyter-notebook-in-the-ibm-watson-studio). *Note: Running in this mode requires a [Event Streams](https://www.ibm.com/cloud/message-hub) service, which charges a nominal fee.*
+
+* [Run locally using the Spark shell](#run-locally) OR
+* [Run with IBM Watson Studio](#run-with-ibm-watson-studio)
+
+> **NOTE**: Running with Watson Studio will require an [Event Streams](https://cloud.ibm.com/catalog/services/event-streams) service, which is not free.
 
 ## Run locally
+
 1. [Install Spark and Kafka](#1-install-spark-and-kafka)
 2. [Setup and run a simulated clickstream](#2-setup-and-run-a-simulated-clickstream)
 3. [Run the script](#3-run-the-script)
@@ -63,37 +63,37 @@ Install by downloading and extracting a binary distribution from [Apache Kafka](
 
 ### 2. Setup and run a simulated clickstream
 
-*Note: These steps can be skipped if you already have a clickstream available for processing. If so, create and stream data to the topic named 'clicks' before proceeding to the next step.*
+> **NOTE**: These steps can be skipped if you already have a clickstream available for processing. If so, create and stream data to the topic named 'clicks' before proceeding to the next step.
 
 Use the following steps to setup a simulation clickstream that uses data from an external publisher:
 
-1. Download and extract the `Wikipedia Clickstream` data from [here](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Where_to_get_the_Data "Wikipedia clickstream data"). Since the schema for this data is ever evolving, you may select the data set that was used to test this Code Pattern -  `2017_01_en_clickstream.tsv.gz`.
+1. Download and extract the [Wikipedia Clickstream](https://figshare.com/articles/Wikipedia_Clickstream/1305770). Select any data set, the set [`2017_01_en_clickstream.tsv.gz`](https://ndownloader.figshare.com/files/7563832) was used for this Code Pattern.
 
-2. Create and run a local Kafka service instance by following the instructions listed [here](https://kafka.apache.org/quickstart). Be sure to create a topic named `clicks`.
+2. Create and run a local Kafka service instance by following the instructions listed in the [Kafka Quickstart Documentation](https://kafka.apache.org/quickstart). Be sure to create a topic named `clicks`.
 
 3. The Kafka distribution comes with a handy command line utility for uploading data to the Kafka service. To process the simulated Wikipedia data, run the following commands:
 
-*Note: Replace `ip:port` with the correct values of the running Kafka service, which is defaulted to `localhost:9092` when running locally.*
+> **NOTE**: Replace `ip:port` with the correct values of the running Kafka service, which is defaulted to `localhost:9092` when running locally.
 
-```
-$ cd kafka_2.10-0.10.2.1
-$ tail -200 data/2017_01_en_clickstream.tsv | bin/kafka-console-producer.sh --broker-list ip:port --topic clicks --producer.config=config/producer.properties
+```bash
+cd kafka_2.10-0.10.2.1
+tail -200 data/2017_01_en_clickstream.tsv | bin/kafka-console-producer.sh --broker-list ip:port --topic clicks --producer.config=config/producer.properties
 ```
 
-*Tip: Unix head or tail utilities can be used for conveniently specifying the range of rows to be sent for simulating the clickstream.*
+> **TIP**: Unix head or tail utilities can be used for conveniently specifying the range of rows to be sent for simulating the clickstream.
 
 ### 3. Run the script
 
 Go to the Spark install directory and bootstrap the Spark shell specifying the correct versions of Spark and Kafka:
 
-```
-$ cd $SPARK_DIR
-$ bin/spark-shell --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.2.0
+```bashh
+cd $SPARK_DIR
+bin/spark-shell --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.2.0
 ```
 
 In the spark shell prompt, specify the schema of the incoming wikipedia clickstream and parse method:
 
-*Tip: For conveniently copying and pasting commands into the spark shell, spark-shell supports a `:paste` mode*
+> **TIP**: For conveniently copying and pasting commands into the spark shell, spark-shell supports a `:paste` mode*
 
 ```scala
 scala> import scala.util.Try
@@ -112,7 +112,7 @@ scala> def parseVal(x: Array[Byte]): Option[Click] = {
 
 Setup structured streaming to read from Kafka:
 
-*Note: Replace `ip:port` with the correct values of ip and port of the running Kafka service, which is defaulted to `localhost:9092` when running locally.*
+> **NOTE**: Replace `ip:port` with the correct values of ip and port of the running Kafka service, which is defaulted to `localhost:9092` when running locally.
 
 ```scala
 scala> val records = spark.readStream.format("kafka")
@@ -142,7 +142,7 @@ val query = messages.writeStream
               .start()
 ```
 
-```
+```scala
 scala> -------------------------------------------
 Batch: 0
 
@@ -170,146 +170,117 @@ Batch: 0
 |Patrick_Swayze                               |373626 |
 +---------------------------------------------+-------+
 only showing top 20 rows
-
 ```
-
---------------------------------------------------------------
 
 The resultant table shows the Wikipedia pages that had the most hits. This table updates automatically whenever more data arrives from Kafka. Unless specified otherwise, structured streaming performs processing as soon as it sees any data.
 
 Here we assume the higher number of clicks indicates a "Hot topic" or "Trending topic". Please feel free to contribute any ideas on how to improve this, or thoughts on any other types of clickstream analytics that can be done.
 
-## Run using a Jupyter notebook in the IBM Watson Studio
+## Run with IBM Watson Studio
 
 1. [Create a new Watson Studio project](#1-create-a-new-watson-studio-project)
-2. [Create the notebook](#3-create-the-notebook)
-3. [Run the notebook](#4-run-the-notebook)
-4. [Upload data](#5-upload-data)
-5. [Save and Share](#6-save-and-share)
+2. [Create the notebook](#2-create-the-notebook)
+3. [Set up Even Streams](#3-set-up-event-streams)
+4. [Run the notebook](#4-run-the-notebook)
+5. [Upload data](#5-upload-data)
 
-*Note: Running this part of the Code Pattern requires a [Event Streams](https://www.ibm.com/cloud/message-hub) service, which charges a nominal fee.*
+> **NOTE**: Running with Watson Studio will require an [Event Streams](https://cloud.ibm.com/catalog/services/event-streams) service, which is not free.
 
 ### 1. Create a new Watson Studio project
 
-* Log in or sign up for IBM's [Watson Studio](https://dataplatform.cloud.ibm.com/).
+* Log into IBM's [Watson Studio](https://dataplatform.cloud.ibm.com). Once in, you'll land on the dashboard.
 
-* Select the `New Project` option from the Watson Studio landing page and choose the `Jupyter Notebooks` option.
+* Create a new project by clicking `+ New project` and choosing `Data Science`:
 
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/project_choices.png)
+  ![studio project](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/new-project-data-science.png)
 
-* To create a project in Watson Studio, give the project a name and either create a new `Cloud Object Storage` service or select an existing one from your IBM Cloud account.
+* Enter a name for the project name and click `Create`.
 
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/new_project.png)
+* **NOTE**: By creating a project in Watson Studio a free tier `Object Storage` service and `Watson Machine Learning` service will be created in your IBM Cloud account. Select the `Free` storage type to avoid fees.
+
+  ![studio-new-project](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/new-project-data-science-name.png)
 
 * Upon a successful project creation, you are taken to a dashboard view of your project. Take note of the `Assets` and `Settings` tabs, we'll be using them to associate our project with any external assets (datasets and notebooks) and any IBM cloud services.
 
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/project_dashboard.png)
+  ![studio-project-dashboard](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/overview-empty.png)
 
 ### 2. Create the notebook
 
-* Click on the **Add to project** button.
-* Click on **Notebook**.
-* Click on **From URL**.
-* Fill in a name for the notebook (e.g. "diabetes-prediction").
-* Copy and paste this URL into the notebook URL field:
+* From the new project `Overview` panel, click `+ Add to project` on the top right and choose the `Notebook` asset type.
 
-```
-https://raw.githubusercontent.com/IBM/kafka-streaming-click-analysis/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb
-```
+  ![studio-project-dashboard](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/add-assets-notebook.png)
 
-* In the **Select runtime** drop-down box, choose the entry that begins with **Default Spark Python**.
-* Click the **Create Notebook** button.
+* Fill in the following information:
 
-### 3. Run the notebook
+  * Select the `From URL` tab. [1]
+  * Enter a `Name` for the notebook and optionally a description. [2]
+  * Under `Notebook URL` provide the following url: [https://raw.githubusercontent.com/IBM/kafka-streaming-click-analysis/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb](https://raw.githubusercontent.com/IBM/kafka-streaming-click-analysis/master/notebooks/Clickstream_Analytics_using_Apache_Spark_and_Message_Hub.ipynb) [3]
+  * For `Runtime` select the `Spark Python 3.6` option. [4]
 
-Before running the notebook, you will need to setup a [Event Streams](https://www.ibm.com/cloud/message-hub) service.
+  ![add notebook](https://github.com/IBM/pattern-utils/raw/master/watson-studio/notebook-create-url-spark-py36.png)
 
-* To create a Event Streams service, go to the `Data Services-> Services` tab on the IBM Watson Studio dashboard. Click `Create`, then select the Event Streams service. Select the `Standard` plan then follow the on-screen instructions to create the service. Once created, select the Event Streams service instance to bring up the details panel where you can create a topic. In the create form, name the topic `clicks` and leave the other fields with their default values.
+* Click the `Create` button.
 
-* Next create a connection to this service so that it can be added as an asset to the project. Go to the `Data Services-> Connections` tab on the Watson Studio dashboard. Click `Create New` to create a connection. Provide a unique name and then select the just created Event Streams instance as the `Service Instance` connection.
+* **TIP:** Once successfully imported, the notebook should appear in the `Notebooks` section of the `Assets` tab.
+
+### 3. Set up Event Streams
+
+Before running the notebook, you will need to setup a [Event Streams](https://cloud.ibm.com/catalog/services/event-streams) service.
+
+* To create a Event Streams service, go to the `Data Services` -> `Services` tab on the IBM Watson Studio dashboard. Click `Create`, then select the Event Streams service. Select the `Standard` plan then follow the on-screen instructions to create the service. Once created, select the Event Streams service instance to bring up the details panel where you can create a topic. In the create form, name the topic `clicks` and leave the other fields with their default values.
+
+* Next create a connection to this service so that it can be added as an asset to the project. Go to the `Data Services` -> `Connections` tab on the Watson Studio dashboard. Click `Create New` to create a connection. Provide a unique name and then select the just created Event Streams instance as the `Service Instance` connection.
 
 * Next attach the connection as an asset to the project. Go to the `Assets` tab on your project dashboard. Click on `Add to project` and select the `Data Asset` option. Then click on the `Connections` tab and select your just created connection. Click 'Apply' to add the connection.
 
-The notebook is now ready to be run. The first step in the notebook is to insert credentials for the Event Streams connection you just created. To do this, start the notebook in edit mode and select code cell '[1]'. Then click on the `1001` button located in the top right corner of the notebook. Select the `Connections` tab to see your Event Streams connector. Click the `Insert to code` button to download the Event Streams credentials data into code cell `[1]`.
+### 4. Run the notebook
 
-> Note: Make sure you rename the credentials object to `credentials_1`.
+* Click the `(►) Run` button to start stepping through the notebook.
 
-When a notebook is executed, what is actually happening is that each code cell in
-the notebook is executed, in order, from top to bottom.
+* When you approach the section entitled `Credentials Section` stop executing the cells and update the credentials. We do this by inserting credentials for the Event Streams connection you just created.
 
-Each code cell is selectable and is preceded by a tag in the left margin. The tag
-format is `In [x]:`. Depending on the state of the notebook, the `x` can be:
+* Then click on the `1001` button located in the top right corner of the notebook. Select the `Connections` tab to see your Event Streams connector. Click the `Insert to code` button to download the Event Streams credentials data into code cell `[1]`.
+
+> **NOTE**: Make sure you rename the credentials object to `credentials_1`.
+
+* Now finish the notebook by running each cell one at a time.
+
+#### Tips on running a notebook
+
+When a notebook is executed, what is actually happening is that each code cell in the notebook is executed, in order, from top to bottom.
+
+Each code cell is selectable and is preceded by a tag in the left margin. The tag format is `In [x]:`. Depending on the state of the notebook, the `x` can be:
 
 * A blank, this indicates that the cell has never been executed.
 * A number, this number represents the relative order this code step was executed.
 * A `*`, this indicates that the cell is currently executing.
 
-There are several ways to execute the code cells in your notebook:
+### 5. Upload data
 
-* One cell at a time.
-  * Select the cell, and then press the `Play` button in the toolbar.
-* Batch mode, in sequential order.
-  * From the `Cell` menu bar, there are several options available. For example, you
-    can `Run All` cells in your notebook, or you can `Run All Below`, that will
-    start executing from the first cell under the currently selected cell, and then
-    continue executing all cells that follow.
-* At a scheduled time.
-  * Press the `Schedule` button located in the top right section of your notebook
-    panel. Here you can schedule your notebook to be executed once at some future
-    time, or repeatedly at your specified interval.
+For uploading data to the Event Streams or Apache Kafka as a service, use the kafka command line utility. Using the detailed instructions found in the [Setup and run a simulated clickstream](#2-setup-and-run-a-simulated-clickstream) section above, you need to:
 
+1. Download the Wikipedia data.
+2. Download the Kafka distribution binary.
+3. Download [config/messagehub.properties](config/messagehub.properties) config file and update message hub credentials, found in the credentials section of the notebook.
 
-### 4. Upload data
-
-For uploading data to the [Event Streams](https://www.ibm.com/cloud/message-hub) or Apache Kafka as a service, use the kafka command line utility. Using the detailed instructions found in the [Setup and run a simulated clickstream](#2-setup-and-run-a-simulated-clickstream) section above, you need to:
-
-1) Download the Wikipedia data.
-2) Download the Kafka distribution binary.
-3) Download [config/messagehub.properties](config/messagehub.properties) config file and update message hub credentials, found in the credentials section of the notebook. (*Please note: Ignore extra set of double quotes in the password(if any), while copying it.*)
+> **NOTE**: Ignore extra set of double quotes in the password (if any), while copying it.
 
 After downloading and extracting the Kafka distribution binary and the data, run the command as follows:
 
-*Note: Replace `ip:port` with the `kafka_brokers_sasl` value found in the credentials section of the notebook, described in previous step.*
+> **NOTE**: Replace `ip:port` with the `kafka_brokers_sasl` value found in the credentials section of the notebook, described in previous step.
 
+```bash
+cd kafka_2.10-0.10.2.1
+tail -200 data/2017_01_en_clickstream.tsv | bin/kafka-console-producer.sh --broker-list ip:port --request-timeout-ms 30000 --topic clicks --producer.config=config/messagehub.properties
 ```
-$ cd kafka_2.10-0.10.2.1
-$ tail -200 data/2017_01_en_clickstream.tsv | bin/kafka-console-producer.sh --broker-list ip:port --request-timeout-ms 30000 --topic clicks --producer.config=config/messagehub.properties
 
-```
-
-### 5. Save and Share
-
-#### How to save your work:
-
-Under the `File` menu, there are several ways to save your notebook:
-
-* `Save` will simply save the current state of your notebook, without any version
-  information.
-* `Save Version` will save your current state of your notebook with a version tag
-  that contains a date and time stamp. Up to 10 versions of your notebook can be
-  saved, each one retrievable by selecting the `Revert To Version` menu item.
-
-#### How to share your work:
-
-You can share your notebook by selecting the “Share” button located in the top
-right section of your notebook panel. The end result of this action will be a URL
-link that will display a “read-only” version of your notebook. You have several
-options to specify exactly what you want shared from your notebook:
-
-* `Only text and output`: will remove all code cells from the notebook view.
-* `All content excluding sensitive code cells`:  will remove any code cells
-  that contain a *sensitive* tag. For example, `# @hidden_cell` is used to protect
-  your dashDB credentials from being shared.
-* `All content, including code`: displays the notebook as is.
-* A variety of `download as` options are also available in the menu.
-
-# Learn more
+## Learn more
 
 * **Data Analytics Code Patterns**: Enjoyed this Code Pattern? Check out our other [Data Analytics Code Patterns](https://developer.ibm.com/technologies/data-science/)
 * **AI and Data Code Pattern Playlist**: Bookmark our [playlist](https://www.youtube.com/playlist?list=PLzUbsvIyrNfknNewObx5N7uGZ5FKH0Fde) with all of our Code Pattern videos
 * **Watson Studio**: Master the art of data science with IBM's [Watson Studio](https://dataplatform.cloud.ibm.com/)
 
-# License
+## License
 
 This code pattern is licensed under the Apache Software License, Version 2.  Separate third party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1 (DCO)](https://developercertificate.org/) and the [Apache Software License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
